@@ -1,0 +1,43 @@
+.webview-f3d38 {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+.webview-f3d38.edit-ba2d2 {
+  width: 375px;
+  height: 667px;
+}
+.webview-f3d38 .empty-a00fc {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #999999;
+}
+.webview-f3d38 .tips-de365 {
+  position: absolute;
+  z-index: 1000;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  color: #222222;
+  padding: 30px;
+  background: #ffffff;
+  box-shadow: 0px -1px 10px rgba(0, 0, 0, 0.1);
+}
+.webview-f3d38 .tips-de365 .strong-f2eae {
+  font-weight: 500;
+}
+.webview-f3d38 .tips-de365 .row-b56db {
+  margin-top: 6px;
+}
+.webview-f3d38 .tips-de365 .link-e26d8 {
+  margin-left: 6px;
+  padding: 3px 6px;
+  color: #07c160;
+  background: rgba(7, 193, 96, 0.1);
+  word-break: break-all;
+}
+

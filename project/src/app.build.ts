@@ -1,0 +1,123 @@
+import Taro from "@tarojs/taro";
+import { Component } from "react";
+import { render } from "./app/render-taro"
+import './app/render-taro/index.css'
+import mybricksConfig from './../mybricks.config.json';
+import { call as callConnectorHttp } from "./app/utils/callConnectorHttp-ktaro";
+import './app/utils/pxToRpx';
+
+import "./app.less";
+
+const app = Taro.getApp({
+  allowDefault: true,
+});
+
+app.h = app.h || {};
+
+const genCallConnector = (toJson, comInstance) => (connector, params) => {
+  if (connector.type === 'http') {
+    //服务接口类型
+    return callConnectorHttp({ script: comInstance[connector.id] }, params)
+  } else if (connector.type === 'http-sql') {
+    return callConnectorHttp({ script: comInstance[connector.id] }, params, {
+      before(options) {
+        let newOptions = { ...options }
+        const isInProject = !!toJson?.configuration?.projectId
+        if (isInProject) {
+          Object.assign(newOptions.data, {
+            projectId: toJson?.configuration?.projectId
+          })
+          return {
+            ...newOptions,
+            url: `${toJson?.configuration?.serviceDomain}/runtime/api/domain/service/run`
+          }
+        }
+        return {
+          ...newOptions,
+          url: `${toJson?.configuration?.serviceDomain}/api/system/domain/run`
+        }
+      }
+    })
+  } else {
+    return Promise.reject('错误的连接器类型.')
+  }
+}
+
+//
+app.h.render = (toJson, { comDefs, comInstance, ref }) => {
+  return render(toJson, {
+    env: {
+      callConnector: genCallConnector(toJson, comInstance),
+      renderCom(json, opts) {
+        return new Promise((resolve) => {
+          resolve(
+            render(
+              json,
+              {
+                ...(opts || {}),
+                env: {
+                  ...(opts?.env || {}),
+                  edit: false,
+                  runtime: true,
+                  events: [],
+                  comDefs: comDefs,
+                  comInstance: comInstance,
+                },
+                events: [],
+                comDefs: comDefs,
+                comInstance: comInstance,
+                callConnector: genCallConnector(toJson, comInstance),
+              }
+            ),
+          );
+        });
+      },
+    },
+    events: [],
+    comDefs: comDefs,
+    comInstance: comInstance,
+    ref,
+  });
+};
+
+app.mybricks = app.mybricks || {}
+
+const init = () => new Promise((resolve) => {
+  app.mybricks.pageJsonMap = {}
+  if (Array.isArray(mybricksConfig?.pages)) {
+    mybricksConfig?.pages.forEach(page => {
+      app.mybricks.pageJsonMap[page.pagePath] = page.json
+    })
+  }
+  resolve(true)
+})
+app.mybricks.ready = init();
+
+class App extends Component<any> {
+  onLoad() {
+    
+  }
+
+  componentDidMount() {
+    console.log("componentDidMount");
+  }
+
+  onLaunch(...args) {
+    console.log("onLaunch", ...args);
+  }
+
+  componentDidShow(...args) {
+    console.log("componentDidShow", ...args);
+  }
+
+  componentDidHide(...args) {
+    console.log("componentDidHide", ...args);
+  }
+
+  // this.props.children 是将要会渲染的页面
+  render() {
+    return this.props.children;
+  }
+}
+
+export default App;

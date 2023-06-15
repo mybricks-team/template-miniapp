@@ -1,0 +1,47 @@
+.safeArea-c0d12.safeAreaTop-e209e {
+  /* 兼容 iOS < 11.2 */
+  padding-top: constant(safe-area-inset-top);
+  /* 兼容 iOS >= 11.2 */
+  padding-top: env(safe-area-inset-top);
+}
+.safeArea-c0d12.safeAreaBottom-f507e {
+  /* 兼容 iOS < 11.2 */
+  padding-bottom: constant(safe-area-inset-bottom);
+  /* 兼容 iOS >= 11.2 */
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.safeArea-c0d12.edit-f212e.safeAreaTop-e209e {
+  height: 44px;
+  position: relative;
+}
+.safeArea-c0d12.edit-f212e.safeAreaTop-e209e::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.05);
+  content: "顶部安全距离";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(0, 0, 0, 0.1);
+}
+.safeArea-c0d12.edit-f212e.safeAreaBottom-f507e {
+  height: 44px;
+  position: relative;
+}
+.safeArea-c0d12.edit-f212e.safeAreaBottom-f507e::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.05);
+  content: "底部安全距离";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(0, 0, 0, 0.1);
+}
+

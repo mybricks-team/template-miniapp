@@ -1,0 +1,27 @@
+.wrapper-e297e {
+  width: 100%;
+  height: 100%;
+}
+.swiper-e3921 {
+  width: 100%;
+  height: 100%;
+}
+.swiper-e3921.mock-cc500 {
+  display: flex;
+  flex-wrap: nowrap;
+}
+.swiper-e3921.mock-cc500 .swiperItem-bcdf7 {
+  flex-shrink: 0;
+}
+.swiper-e3921 .swiperItem-bcdf7 {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.swiper-e3921 .swiperItem-bcdf7 .thumbnail-ac7cd {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+

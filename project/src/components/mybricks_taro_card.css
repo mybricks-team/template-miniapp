@@ -1,0 +1,38 @@
+.card-e11f8 {
+  width: 100%;
+  height: 100%;
+}
+.card-e11f8 .head-aa7ff {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.card-e11f8 .head-aa7ff .title-f23b3 {
+  padding: 8px;
+  padding-left: 0px;
+  color: #222226;
+  font-size: 17px;
+  line-height: 15px;
+  font-weight: 500;
+}
+.card-e11f8 .head-aa7ff .extra-feb65 {
+  padding: 8px;
+  padding-right: 0px;
+}
+.card-e11f8 .head-aa7ff .extra-feb65 .text-fcb74 {
+  color: #222226;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card-e11f8 .head-aa7ff .extra-feb65 .arrow-b71d2 {
+  margin-left: 3px;
+  width: 5px;
+  height: 9px;
+  background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNiIgaGVpZ2h0PSIxMCIgdmlld0JveD0iMCAwIDYgMTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0xLjQxNjY4IDkuNTQwNTNMMC43MDk1NzYgOC44MzM0Mkw0LjU0MzAyIDUuMDAwMTdMMC43MDk1NzUgMS4xNjY3NUwxLjQxNjY4IDAuNDU5NjQ3TDUuOTU3MTIgNS4wMDAwOUwxLjQxNjY4IDkuNTQwNTNaIiBmaWxsPSIjMjIyMjI2Ii8+Cjwvc3ZnPgo=) no-repeat center center / contain;
+}
+.card-e11f8 .body-b1e4e.empty-be1b0 {
+  height: 90px;
+}
+

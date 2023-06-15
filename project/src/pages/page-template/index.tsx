@@ -1,0 +1,75 @@
+import React, { useState, useEffect, useMemo, useRef } from "react";
+import Taro, { useDidShow, useDidHide, useRouter } from "@tarojs/taro";
+import comInstance from "./comModules";
+import comDefs from "./comDefs";
+import { View } from "@tarojs/components";
+import "./style.less";
+
+const app = Taro.getApp();
+
+class polyfillIORefs {
+  ref = {
+    inputs: {},
+  };
+
+  constructor() {
+    this.ref.inputs.onPageShow = () => {
+      this.callbacks.push(() => this.ref.inputs?.onPageShow?.());
+    };
+  }
+
+  callbacks = [];
+
+  setRef = (ref) => {
+    this.ref = ref;
+  };
+
+  call = () => {
+    if (Array.isArray(this.callbacks) && this.callbacks.length) {
+      this.callbacks.forEach((func) => {
+        func?.();
+      });
+    }
+  };
+
+  destroy = () => {
+    this.callbacks = [];
+  };
+}
+
+export default () => {
+  const [ready, setIsReady] = useState(false);
+  const ioRefs = useRef(new polyfillIORefs());
+
+  const router = useRouter();
+
+  useEffect(() => {
+    app.mybricks.ready.then(() => {
+      setIsReady(true);
+    });
+  }, []);
+
+  useDidShow(() => {
+    ioRefs.current.ref?.inputs?.onPageShow?.();
+  });
+
+  useDidHide(() => {
+    ioRefs.current.ref?.inputs?.onPageHide?.();
+  });
+
+  if (!ready) {
+    return null;
+  }
+
+  const json = app.mybricks.pageJsonMap[router.path.slice(1)];
+  let jsx = app.h.render(json, {
+    comDefs: comDefs,
+    comInstance: comInstance,
+    ref: (refs) => {
+      ioRefs.current.setRef(refs);
+      ioRefs.current.call();
+    },
+  });
+
+  return <View className="page">{jsx}</View>;
+};
