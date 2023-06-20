@@ -19,7 +19,8 @@ export default function init(opts, {observable}) {
     env,
     ref,
     onError,
-    logger
+    logger,
+    scenesOperate
   } = opts
 
   const {
@@ -73,7 +74,8 @@ export default function init(opts, {observable}) {
           let myScope
           //if (!curScope) {
           myScope = {
-            id: uuid(),
+            // id: nextScope?.id || uuid(10, 16),
+            id: uuid(10, 16),
             frameId: proxyDesc.frameId,
             parent: nextScope,
             proxyComProps: comProps//current proxied component instance
@@ -143,7 +145,7 @@ export default function init(opts, {observable}) {
         } else {
           const ary = frameKey.split('-')
           if (ary.length >= 2) {
-            const slotProps = getSlotProps(ary[0], ary[1])
+            const slotProps = getSlotProps(ary[0], ary[1], null, notifyAll)
 
             if (!slotProps.curScope) {//存在尚未执行的作用域插槽的情况，例如页面卡片中变量的赋值、驱动表单容器中同一变量的监听
               slotProps.pushTodo((curScope) => {
@@ -163,6 +165,21 @@ export default function init(opts, {observable}) {
           }
         }
       } else {
+        const ary = inReg.frameKey.split('-')
+
+        if (ary.length >= 2 && !nextScope) {
+          const slotProps = getSlotProps(ary[0], ary[1], null, false)
+          if (slotProps?.type === 'scope' && !slotProps?.curScope) {
+            slotProps.pushTodo((curScope) => {
+              if (curScope !== nextScope) {
+                nextScope = curScope
+              }
+
+              exeCon(inReg, nextScope)
+            })
+            return
+          }
+        }
         exeCon(inReg, nextScope)
       }
     })
@@ -183,6 +200,11 @@ export default function init(opts, {observable}) {
 
     let storeScopeId
     let curScope = scope
+
+    if (!curScope && com.parentComId && com.frameId) {
+      curScope = _Props[`${com.parentComId}-${com.frameId}`]?.curScope
+    }
+
     while (curScope) {
       const key = curScope.id + '-' + comId
 
@@ -319,7 +341,7 @@ export default function init(opts, {observable}) {
           }
         },
         get(target, name, receiver) {
-          return function (val, _myScope, fromCon) {
+          const exe = function (val, _myScope, fromCon) {
             const notifyAll = typeof _myScope === 'boolean' && _myScope//变量组件的特殊处理
 
             const args = arguments
@@ -419,6 +441,12 @@ export default function init(opts, {observable}) {
               }
             }
           }
+
+          exe.getConnections = () => {
+            return Cons[comId + '-' + name] || []
+          }
+
+          return exe
         }
       })
     }
@@ -460,6 +488,10 @@ export default function init(opts, {observable}) {
     })
 
     function _notifyBindings(val) {
+      if (com.global) {
+        scenesOperate?._notifyBindings(val, com)
+        return 
+      }
       const { bindingsTo } = com.model
       if (bindingsTo) {
         for (let comId in bindingsTo) {
@@ -517,6 +549,15 @@ export default function init(opts, {observable}) {
     return rtn
   }
 
+  function getSlotValue(key, scope) {
+    let val = _slotValue[`${key}${scope ? `-${scope.id}-${scope.frameId}` : ''}`]
+    if (!val && scope?.parent) {
+      val = getSlotValue(key, scope.parent)
+    }
+
+    return val
+  }
+
   function exeInputForCom(inReg, val, scope, outputRels?) {
     const {comId, def, pinId, pinType, frameKey, finishPinParentKey} = inReg
 
@@ -561,6 +602,12 @@ export default function init(opts, {observable}) {
         if (jsCom) {
           const props = getComProps(comId, scope)
           const comDef = getComDef(def)
+          if (jsCom.global) {
+            const globalProps = scenesOperate?.getGlobalComProps(comId)
+            if (globalProps) {
+              props.data = globalProps.data
+            }
+          }
           const scopeId = scope?.id
           // const myId = (scope ? scope.id + '-' : '') + comId
           const myId = (scopeId ? scopeId + '-' : '') + comId
@@ -605,7 +652,8 @@ export default function init(opts, {observable}) {
                   if (PinValueProxies) {
                     const pinValueProxy = PinValueProxies[`${comId}-${pinId}`]
                     if (pinValueProxy) {
-                      val = _slotValue[`${frameKey}-${pinValueProxy.pinId}${scope ? `-${scope.id}-${scope.frameId}` : ''}`]
+                      // val = _slotValue[`${frameKey}-${pinValueProxy.pinId}${scope ? `-${scope.id}-${scope.frameId}` : ''}`]
+                      val = getSlotValue(`${frameKey}-${pinValueProxy.pinId}`, scope)
                     }
                   }
                   props.outputs[name](val, scope, inReg)
@@ -721,35 +769,53 @@ export default function init(opts, {observable}) {
   }
 
   function searchComInSlot(slot, comId) {
+    let result
     if (slot.comAry) {
-      return slot.comAry.find(com => {
+      slot.comAry.find(com => {
         if (com.id === comId) {
+          result = com
           return com
         }
         if (com.slots) {
           for (let id in com.slots) {
-            const found = searchComInSlot(com.slots[id], comId)
-            if (found) {
-              return found
+            result = searchComInSlot(com.slots[id], comId)
+            if (result) {
+              return result
             }
           }
         }
       })
     }
+  
+    return result
   }
 
-  function getSlotProps(comId, slotId, scope) {
-    const key = comId + '-' + slotId
+  function getSlotProps(comId, slotId, scope, notifyAll?) {
+    let key = comId + '-' + slotId + (scope ? `-${scope.id}` : '')
 
     let rtn = _Props[key]
+
+    if (notifyAll && !rtn) {
+      rtn =  _Props[Object.keys(_Props).find((propsKey) => propsKey.startsWith(key)) as string]
+    }
+
     if (!rtn) {
       const foundCom = searchComInSlot(UIRoot, comId)
-      const slotDef = foundCom.slots[slotId]
+      const slotDef = foundCom?.slots[slotId]
 
       //const _outputRegs = {}
       const _inputRegs = {}
 
-      const Cur = {scope, todo: void 0}//保存当前scope，在renderSlot中调用run方法会被更新
+      let todo = void 0
+
+      if (scope) {
+        const errorPorps = _Props[comId + '-' + slotId]
+        if (errorPorps) {
+          todo = errorPorps.todo
+        }
+      }
+
+      const Cur = {scope, todo}//保存当前scope，在renderSlot中调用run方法会被更新
 
       const _inputs = new Proxy({}, {
         get(target, name) {
@@ -761,7 +827,7 @@ export default function init(opts, {observable}) {
 
       const inputs = new Proxy({}, {
         get(target, name) {
-          return function (val, curScope) {//set data
+          const exe = function (val, curScope) {//set data
             const key = comId + '-' + slotId + '-' + name
             const cons = Cons[key]
             _slotValue[`${key}${curScope ? `-${curScope.id}-${curScope.frameId}` : ''}`] = val
@@ -776,6 +842,12 @@ export default function init(opts, {observable}) {
               // })
             }
           }
+
+          exe.getConnections = () => {
+            return Cons[comId + '-' + slotId + '-' + name] || []
+          }
+
+          return exe
         }
       })
 
@@ -815,7 +887,9 @@ export default function init(opts, {observable}) {
 
           if (Array.isArray(Cur.todo)) {
             Cur.todo.forEach(fn => {
-              fn(scope)
+              Promise.resolve().then(() => {
+                fn(scope)
+              })
             })
             Cur.todo = void 0//执行完成清空
           }
@@ -827,6 +901,9 @@ export default function init(opts, {observable}) {
         outputs,
         get curScope() {
           return Cur.scope
+        },
+        get todo() {
+          return Cur.todo
         },
         pushTodo(fn) {
           if (!Cur.todo) {
@@ -891,28 +968,19 @@ export default function init(opts, {observable}) {
     const cons = Cons[idPre + '-' + pinId]
     if (cons) {
       exeCons(cons, val, scope)
+    } else if (frameId !== ROOT_FRAME_KEY) {
+      scenesOperate?.open({
+        frameId,
+        todo: {
+          pinId,
+          value: val
+        },
+        parentScope: scope.proxyComProps
+      })
     }
   }
 
-  if (typeof ref === 'function') {
-    ref({
-      run() {
-        exeForFrame({frameId: ROOT_FRAME_KEY})
-      },
-      inputs: new Proxy({}, {
-        get(target, pinId) {
-          return function (val) {
-            exeInputForFrame({frameId: ROOT_FRAME_KEY, pinId,}, val)
-          }
-        }
-      }),
-      outputs(id, fn) {
-        _frameOutput[id] = fn;
-      }
-    })
-  }
-
-  return {
+  const rst = {
     get(comId: string, _slotId: string, scope: { id: string }, _ioProxy) {
       let slotId, curScope, ioProxy
       for (let i = 0; i < arguments.length; i++) {
@@ -942,4 +1010,25 @@ export default function init(opts, {observable}) {
       }
     }
   }
+
+  if (typeof ref === 'function') {
+    ref({
+      run() {
+        exeForFrame({frameId: ROOT_FRAME_KEY})
+      },
+      inputs: new Proxy({}, {
+        get(target, pinId) {
+          return function (val) {
+            exeInputForFrame({frameId: ROOT_FRAME_KEY, pinId,}, val)
+          }
+        }
+      }),
+      outputs(id, fn) {
+        _frameOutput[id] = fn;
+      },
+      get: rst.get
+    })
+  }
+
+  return rst
 }
