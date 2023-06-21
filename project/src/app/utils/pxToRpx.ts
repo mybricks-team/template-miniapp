@@ -31,7 +31,7 @@ React.createElement = function (...args) {
         (matchKeys.includes(key) && !isNaN(parseFloat(newStyle[key])) && newStyle[key] !== '100%')
       ) {
         newStyle[key] = Taro.pxTransform(
-          parseFloat(newStyle[key].replace("px", ""))
+          parseFloat(String(newStyle[key]).replace("px", ""))
         );
       }
     });
