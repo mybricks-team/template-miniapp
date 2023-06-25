@@ -39,7 +39,7 @@
     "@tarojs/shared": "3.5.11",
     "@tarojs/taro": "3.5.11",
     "@taroify/icons": "^0.1.0-alpha.1",
-    "brickd-mobile": "^0.0.14",
+    "brickd-mobile": "^0.0.23",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "taro-hooks": "latest"
