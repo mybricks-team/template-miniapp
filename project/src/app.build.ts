@@ -44,7 +44,7 @@ const genCallConnector = (toJson, comInstance) => (connector, params) => {
 
 //
 app.h.render = (toJson, { comDefs, comInstance, ref }) => {
-  const _comModules = app.mybricks.allComModules ?? comInstance
+  const _comModules = typeof app.mybricks?.allComModules === 'object' ? app.mybricks?.allComModules : comInstance
   return render(toJson, {
     env: {
       callConnector: genCallConnector(toJson, _comModules),
@@ -81,6 +81,8 @@ app.h.render = (toJson, { comDefs, comInstance, ref }) => {
 };
 
 app.mybricks = app.mybricks || {}
+
+app.mybricks.allComModules = 'TEMPLATE:COMMODULES';
 
 const mybricksConfig = 'TEMPLATE:CONFIGJSON';
 
