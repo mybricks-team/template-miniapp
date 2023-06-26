@@ -81,7 +81,7 @@ app.h.render = (toJson, { comDefs, comInstance, ref }) => {
 
 app.mybricks = app.mybricks || {}
 
-const mybricksConfig = 'TEMPLATE:CONFIJSON';
+const mybricksConfig = 'TEMPLATE:CONFIGJSON';
 
 const init = () => new Promise((resolve) => {
   app.mybricks.pageJsonMap = {}
