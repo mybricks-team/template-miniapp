@@ -78,8 +78,8 @@ module.exports = {
       //   }
       // })
 
-      chain.plugin('analyzer')
-        .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin, [])
+      // chain.plugin('analyzer')
+      //   .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin, [])
     }
   },
   h5: {
