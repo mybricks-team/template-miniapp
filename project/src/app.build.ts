@@ -44,9 +44,10 @@ const genCallConnector = (toJson, comInstance) => (connector, params) => {
 
 //
 app.h.render = (toJson, { comDefs, comInstance, ref }) => {
+  const _comModules = app.mybricks.allComModules ?? comInstance
   return render(toJson, {
     env: {
-      callConnector: genCallConnector(toJson, comInstance),
+      callConnector: genCallConnector(toJson, _comModules),
       renderCom(json, opts) {
         return new Promise((resolve) => {
           resolve(
@@ -60,12 +61,12 @@ app.h.render = (toJson, { comDefs, comInstance, ref }) => {
                   runtime: true,
                   events: [],
                   comDefs: comDefs,
-                  comInstance: comInstance,
+                  comInstance: _comModules,
                 },
                 events: [],
                 comDefs: comDefs,
-                comInstance: comInstance,
-                callConnector: genCallConnector(toJson, comInstance),
+                comInstance: _comModules,
+                callConnector: genCallConnector(toJson, _comModules),
               }
             ),
           );
@@ -74,7 +75,7 @@ app.h.render = (toJson, { comDefs, comInstance, ref }) => {
     },
     events: [],
     comDefs: comDefs,
-    comInstance: comInstance,
+    comInstance: _comModules,
     ref,
   });
 };
