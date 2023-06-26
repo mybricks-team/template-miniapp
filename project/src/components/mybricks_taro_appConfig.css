@@ -1,6 +1,7 @@
 .page-f0b36 {
   width: 375px;
   min-height: 667px;
+  height: 667px;
   position: relative;
   display: flex;
   flex-direction: column;

@@ -2,7 +2,6 @@ import Taro from "@tarojs/taro";
 import { Component } from "react";
 import { render } from "./app/render-taro"
 import './app/render-taro/index.css'
-import mybricksConfig from './../mybricks.config.json';
 import { call as callConnectorHttp } from "./app/utils/callConnectorHttp-ktaro";
 import './app/utils/pxToRpx';
 
@@ -81,6 +80,8 @@ app.h.render = (toJson, { comDefs, comInstance, ref }) => {
 };
 
 app.mybricks = app.mybricks || {}
+
+const mybricksConfig = 'TEMPLATE:CONFIJSON';
 
 const init = () => new Promise((resolve) => {
   app.mybricks.pageJsonMap = {}

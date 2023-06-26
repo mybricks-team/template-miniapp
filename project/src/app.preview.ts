@@ -3,7 +3,6 @@ import { Component } from "react";
 import * as React from 'react';
 import { render } from "./app/render-taro"
 import './app/render-taro/index.css'
-import mybricksConfig from './../mybricks.config.json';
 import { call as callConnectorHttp } from "./app/utils/callConnectorHttp-ktaro";
 import './app/utils/pxToRpx';
 import { Interpreter } from "mybricks-utils-mp-render/lib";
@@ -91,7 +90,7 @@ app.mybricks = app.mybricks || {}
 
 const init = () => new Promise((resolve) => {
   Taro.request({
-    url: mybricksConfig.mybricksConfigUrl,
+    url: 'TEMPLATE:CONFIGURL',
     method: 'GET'
   }).then((res: any) => {
     if (res.statusCode >= 200 && res.statusCode <= 299) {

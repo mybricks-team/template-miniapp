@@ -4,7 +4,7 @@ import { CoverView, CoverImage, View, Image } from '@tarojs/components'
 import "./style.less";
 import cx from "classnames";
 
-import tabBarJson from "./tabBar.json";
+let tabBarJson = 'TEMPLATE:TABBARLIST';
 
 export default () => {
 
