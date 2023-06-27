@@ -65,9 +65,20 @@ export default () => {
   let jsx = app.h.render(json, {
     comDefs: comDefs,
     comInstance: comInstance,
+    scenesOperate: {
+      /** 页面跳转 */
+      open(props) {
+        Taro.navigateTo({
+          url: `/pages/${props.frameId}/index?params=${JSON.stringify(props.todo.value)}`
+        });
+      }
+    },
     ref: (refs) => {
       ioRefs.current.setRef(refs);
       ioRefs.current.call();
+      /** ref注册后，主动触发输入 */
+      const value = Taro.getCurrentInstance()?.router?.params;
+      refs.inputs['params']?.(JSON.parse(value.params));
     },
   });
 

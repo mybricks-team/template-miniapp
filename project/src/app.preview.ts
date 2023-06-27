@@ -45,7 +45,7 @@ const genCallConnector = (toJson, comModules) => (connector, params) => {
 }
 
 //
-app.h.render = (toJson, { comDefs, comModules, ref }) => {
+app.h.render = (toJson, { comDefs, comModules, ref, scenesOperate }) => {
   const _comModules = app.mybricks.allComModules ?? comModules
   const _comDefs = {
     ...comDefs,
@@ -82,6 +82,7 @@ app.h.render = (toJson, { comDefs, comModules, ref }) => {
     events: [],
     comDefs: _comDefs,
     comInstance: _comModules,
+    scenesOperate,
     ref
   });
 };

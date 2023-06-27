@@ -15,7 +15,7 @@ import MultiScene from "./MultiScene";
 
 // console.log(`%c ${pkg.name} %c@${pkg.version}`, `color:#FFF;background:#fa6400`, ``, ``);
 
-export function render(json, opts: { events?, env?, comDefs?, comInstance?, observable?, ref? } = {}) {
+export function render(json, opts: { events?, env?, comDefs?, comInstance?, observable?, ref?, scenesOperate? } = {}) {
   if (Array.isArray(json.scenes)) {
     return <MultiScene json={json} opts={opts as any}/>
   }
