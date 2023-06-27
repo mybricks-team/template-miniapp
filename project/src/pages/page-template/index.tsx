@@ -68,17 +68,23 @@ export default () => {
     scenesOperate: {
       /** 页面跳转 */
       open(props) {
-        Taro.navigateTo({
-          url: `/pages/${props.frameId}/index?params=${JSON.stringify(props.todo.value)}`
-        });
+        // TODO
+        try {
+          Taro.navigateTo({
+            url: `/pages/${props.frameId}/index?params=${JSON.stringify(props.todo.value)}`
+          });
+        } catch {}
       }
     },
     ref: (refs) => {
       ioRefs.current.setRef(refs);
       ioRefs.current.call();
       /** ref注册后，主动触发输入 */
-      const value = Taro.getCurrentInstance()?.router?.params;
-      refs.inputs['params']?.(JSON.parse(value.params));
+      // TODO
+      try {
+        const value = Taro.getCurrentInstance()?.router?.params;
+        refs.inputs['params']?.(JSON.parse(value.params));
+      } catch {}
     },
   });
 
