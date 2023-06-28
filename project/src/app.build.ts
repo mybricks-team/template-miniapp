@@ -90,7 +90,7 @@ const init = () => new Promise((resolve) => {
   app.mybricks.pageJsonMap = {}
   if (Array.isArray(mybricksConfig?.pages)) {
     mybricksConfig?.pages.forEach(page => {
-      app.mybricks.pageJsonMap[page.pagePath] = page.json
+      app.mybricks.pageJsonMap[page.pagePath] = page.pageToJson
     })
   }
   resolve(true)

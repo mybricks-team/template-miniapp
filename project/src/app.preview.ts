@@ -99,7 +99,7 @@ const init = () => new Promise((resolve) => {
       if (Array.isArray(res.data?.data.pages)) {
         res.data?.data.pages.forEach(page => {
           /** 找到每个页面的json */
-          app.mybricks.pageJsonMap[page.pagePath] = page.json
+          app.mybricks.pageJsonMap[page.pagePath] = page.pageToJson
 
           /** 生成每个页面的js计算 */
           // getComModules(page.json, app.mybricks.allComModules)
