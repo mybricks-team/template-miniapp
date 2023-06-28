@@ -54,6 +54,22 @@ app.h.render = (toJson, { comDefs, comModules, ref, scenesOperate }) => {
   return render(toJson, {
     env: {
       callConnector: genCallConnector(toJson, _comModules),
+      fileUploader(file) {
+        return new Promise((resolve, reject) => {
+          Taro.uploadFile({
+            url: `${toJson?.configuration?.serviceDomain}/paas/api/flow/saveFile`,
+            filePath: file.path,
+            name: "file",
+            formData: {
+              folderPath: `/imgs/${Date.now()}`,
+            },
+            success: (res) => {
+              let data = JSON.parse(res.data);
+              resolve(data?.data?.url);
+            },
+          });
+        });
+      },
       renderCom(json, opts) {
         return new Promise((resolve) => {
           resolve(
@@ -72,7 +88,7 @@ app.h.render = (toJson, { comDefs, comModules, ref, scenesOperate }) => {
                 events: [],
                 comDefs: _comDefs,
                 comInstance: _comModules,
-                callConnector: genCallConnector(toJson, _comModules),
+                // callConnector: genCallConnector(toJson, _comModules),
               }
             ),
           );
