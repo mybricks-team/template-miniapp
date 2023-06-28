@@ -1,6 +1,6 @@
 
 export default {
-  pages: ["pages/demo/demo"],
+  pages: ["pages/page-template/index"],
   window: {
     backgroundTextStyle: "light",
     navigationBarBackgroundColor: "#fff",

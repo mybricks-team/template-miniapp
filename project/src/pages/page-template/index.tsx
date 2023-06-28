@@ -73,7 +73,11 @@ export default () => {
           Taro.navigateTo({
             url: `/pages/${props.frameId}/index?params=${JSON.stringify(props.todo.value)}`
           });
-        } catch {}
+        } catch {
+          Taro.switchTab({
+            url: `/pages/${props.frameId}/index?params=${JSON.stringify(props.todo.value)}`
+          });
+        }
       }
     },
     ref: (refs) => {
@@ -84,7 +88,7 @@ export default () => {
       try {
         const value = Taro.getCurrentInstance()?.router?.params;
         refs.inputs['params']?.(JSON.parse(value.params));
-      } catch {}
+      } catch { }
     },
   });
 
