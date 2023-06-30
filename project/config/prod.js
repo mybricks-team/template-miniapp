@@ -4,21 +4,54 @@ module.exports = {
   },
   defineConstants: {},
   mini: {
+    commonChunks: ['runtime', 'vendors', 'taro', 'common', 'allComDefs'],
     webpackChain (chain) {
       // chain.resolve.alias.set('./tabBar.json', './tabBarConfig.json')
 
       // chain.output.library({
       //   type: "module",
       // }) 
+      // chain.merge({
+      //   experiments: {
+      //     outputModule: true
+      //   }
+      // })
 
+      chain.merge({
+        optimization: {
+          minimize: true,
+          moduleIds: 'named',
+          chunkIds: 'named',
+          runtimeChunk: {
+            name: 'runtime',
+          },
+          splitChunks: {
+            chunks: 'all',
+            maxInitialRequests: Infinity,
+            minSize: 0,
+            cacheGroups: {
+              allComDefs: {
+                name: 'allComDefs',
+                reuseExistingChunk: true,
+                // enforce: true,
+                minSize: 0,
+                minChunks: 2,
+                test: module => {
+                  return /[\\/]components[\\/]/.test(module.resource);
+                },
+                // filename: 'allComDefs.js',
+                // test: /comDefs\.ts/,
+                priority: 2
+              },
+            }
+          }
+        },
+      })
 
-      // chain.experiments.set('outputModule', true)
+      // chain.optimization.minimize(true)
 
-      chain.optimization.minimize(true)
-
-      chain.optimization.set('moduleIds', 'named')
-      chain.optimization.set('chunkIds', 'named')
-      // chain.optimization.set('mangleExports', false)
+      // chain.optimization.set('moduleIds', 'named')
+      // chain.optimization.set('chunkIds', 'named')
 
       // chain.optimization.splitChunks({
       //   chunks: 'all',
