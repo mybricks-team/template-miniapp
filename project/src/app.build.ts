@@ -96,13 +96,13 @@ app.h.render = (toJson, { comDefs, comInstance, ref }) => {
   });
 };
 
-app.mybricks = app.mybricks || {}
+app.mybricks = app.mybricks || {};
 
-app.mybricks.allComModules = 'TEMPLATE:COMMODULES';
-
-app.mybricks.status = 'TEMPLATE:STATUS';
+;app.mybricks.allComModules = 'TEMPLATE:COMMODULES';
 
 const mybricksConfig = 'TEMPLATE:CONFIGJSON';
+
+;app.mybricks.status = 'TEMPLATE:STATUS';
 
 const init = () => new Promise((resolve) => {
   app.mybricks.pageJsonMap = {}
