@@ -100,6 +100,8 @@ app.mybricks = app.mybricks || {}
 
 app.mybricks.allComModules = 'TEMPLATE:COMMODULES';
 
+app.mybricks.status = 'TEMPLATE:STATUS';
+
 const mybricksConfig = 'TEMPLATE:CONFIGJSON';
 
 const init = () => new Promise((resolve) => {
