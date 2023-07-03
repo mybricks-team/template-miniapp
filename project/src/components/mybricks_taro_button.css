@@ -2,16 +2,19 @@
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  text-align: center;
   background: #ea732e;
   color: #ffffff;
   border-radius: 0px;
-  border: none;
+  border-width: 0px;
+  border-style: solid;
   font-size: 14px;
 }
 .button-c6f72::after {
   display: none;
+}
+.button-c6f72 .text-d9621 {
+  width: 100%;
 }
 
