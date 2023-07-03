@@ -144,6 +144,14 @@ const init = () => new Promise((resolve) => {
         interpreter.evaluate(decodeURIComponent(res.data?.data?.allComDefs));
         console.log('app.mybricks.allComDefs', app.mybricks.allComDefs)
       }
+
+      /** 其他配置 */
+      if (res.data?.data?.status) {
+        app.mybricks.status = res.data?.data?.status;
+        console.log('app.mybricks.status', app.mybricks.status)
+      }else{
+        app.mybricks.status = {};
+      }
       resolve(true)
     }
   })
