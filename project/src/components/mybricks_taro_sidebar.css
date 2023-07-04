@@ -12,4 +12,18 @@
   width: 375px;
   height: 667px;
 }
+.treeSelect-cc510 .taroify-tree-select__sidebar {
+  max-width: 120px;
+  min-width: 100px;
+  flex: none;
+}
+.treeSelect-cc510 .taroify-tree-select__sidebar .taroify-badge-wrapper {
+  width: 100%;
+  overflow: hidden;
+  white-space: pre-wrap;
+  word-break: break-word;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
 
