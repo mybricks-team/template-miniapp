@@ -8,11 +8,7 @@
 .hidden-ea5ef {
   display: none !important;
 }
-.stepper-bb4b1 {
-  width: 100%;
-  text-align: right;
-}
-.stepper-bb4b1 input {
+.h5Reset-aeb7c input {
   box-sizing: inherit;
   display: inherit;
   width: inherit;
@@ -24,11 +20,15 @@
   background: inherit;
   border: inherit;
 }
-.stepper-bb4b1 input::-webkit-outer-spin-button,
-.stepper-bb4b1 input::-webkit-inner-spin-button {
+.h5Reset-aeb7c input::-webkit-outer-spin-button,
+.h5Reset-aeb7c input::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
-.stepper-bb4b1 input[type="number"] {
+.h5Reset-aeb7c input[type="number"] {
   -moz-appearance: textfield;
+}
+.stepper-bb4b1 {
+  width: 100%;
+  text-align: right;
 }
 
