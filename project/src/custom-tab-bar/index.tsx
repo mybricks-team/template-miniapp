@@ -17,7 +17,8 @@ export default () => {
     let pages = Taro.getCurrentPages();
     let currentRoute = pages[pages.length - 1].route;
 
-    return tabBarJson.map((raw, index) => {
+    let _tabBarJson = Array.isArray(tabBarJson) ? tabBarJson : [];
+    return _tabBarJson.map((raw, index) => {
       let pagePath = raw.pagePath;
 
       let isSelected = pagePath === currentRoute;
@@ -33,7 +34,7 @@ export default () => {
       let textStyle = isSelected ? raw.selectedTextStyle : raw.normalTextStyle;
 
       return (
-        <View className={itemCx} onClick={() => { switchTab(index, raw.pagePath); } }>
+        <View className={itemCx} onClick={() => { switchTab(index, raw.pagePath); }}>
           <Image className={"icon"} style={{ ...iconStyle }} src={icon}></Image>
           <View className={"text"} style={{ ...textStyle }}>{raw.text}</View>
         </View>
