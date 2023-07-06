@@ -9,6 +9,8 @@ const matchKeys = [
   "marginBottom",
   "marginLeft",
   "marginRight",
+  "paddingTop",
+  "paddingBottom",
   "paddingLeft",
   "paddingRight",
   "width",
