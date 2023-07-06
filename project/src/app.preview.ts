@@ -25,14 +25,16 @@ const genCallConnector = (toJson, comModules) => (connector, params) => {
         let newOptions = { ...options }
 
         // 已登录用户，自动在 params 中加入 userId
+        newOptions.data = newOptions.data || {};
+        newOptions.data.params = newOptions.data.params || {};
         let userInfo = Taro.getStorageSync('userInfo');
         if (userInfo && userInfo.id) {
-          newOptions.data = newOptions.data || {};
-          newOptions.data.params = newOptions.data.params || {};
-          newOptions.data.params.userId = userInfo.id;
+          newOptions.data.params.loginUserId = userInfo.id;
+        } else {
+          newOptions.data.params.loginUserId = 0;
         }
         /////////////////////////////////
-        
+
         const isInProject = !!toJson?.configuration?.projectId
         if (isInProject) {
           Object.assign(newOptions.data, {
@@ -159,7 +161,7 @@ const init = () => new Promise((resolve) => {
       if (res.data?.data?.status) {
         app.mybricks.status = res.data?.data?.status;
         console.log('app.mybricks.status', app.mybricks.status)
-      }else{
+      } else {
         app.mybricks.status = {};
       }
       resolve(true)
@@ -170,7 +172,7 @@ app.mybricks.ready = init();
 
 class App extends Component<any> {
   onLoad() {
-    
+
   }
 
   componentDidMount() {

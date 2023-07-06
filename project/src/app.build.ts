@@ -23,11 +23,13 @@ const genCallConnector = (status, comInstance) => (connector, params) => {
         let newOptions = { ...options }
 
         // 已登录用户，自动在 params 中加入 userId
+        newOptions.data = newOptions.data || {};
+        newOptions.data.params = newOptions.data.params || {};
         let userInfo = Taro.getStorageSync('userInfo');
         if (userInfo && userInfo.id) {
-          newOptions.data = newOptions.data || {};
-          newOptions.data.params = newOptions.data.params || {};
           newOptions.data.params.loginUserId = userInfo.id;
+        } else {
+          newOptions.data.params.loginUserId = 0;
         }
         /////////////////////////////////
 
