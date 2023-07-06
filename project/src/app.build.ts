@@ -13,7 +13,7 @@ const app = Taro.getApp({
 
 app.h = app.h || {};
 
-const genCallConnector = (toJson, comInstance) => (connector, params) => {
+const genCallConnector = (status, comInstance) => (connector, params) => {
   if (connector.type === 'http') {
     //服务接口类型
     return callConnectorHttp({ script: comInstance[connector.id] }, params)
@@ -27,23 +27,23 @@ const genCallConnector = (toJson, comInstance) => (connector, params) => {
         if (userInfo && userInfo.id) {
           newOptions.data = newOptions.data || {};
           newOptions.data.params = newOptions.data.params || {};
-          newOptions.data.params.userId = userInfo.id;
+          newOptions.data.params.loginUserId = userInfo.id;
         }
         /////////////////////////////////
 
-        const isInProject = !!toJson?.configuration?.projectId
+        const isInProject = !!status?.projectId
         if (isInProject) {
           Object.assign(newOptions.data, {
-            projectId: toJson?.configuration?.projectId
+            projectId: status?.projectId
           })
           return {
             ...newOptions,
-            url: `${toJson?.configuration?.serviceDomain}/runtime/api/domain/service/run`
+            url: `${status?.callServiceHost}/runtime/api/domain/service/run`
           }
         }
         return {
           ...newOptions,
-          url: `${toJson?.configuration?.serviceDomain}/api/system/domain/run`
+          url: `${status?.callServiceHost}/api/system/domain/run`
         }
       }
     })
@@ -57,7 +57,8 @@ app.h.render = (toJson, { comDefs, comInstance, ref, scenesOperate }) => {
   const _comModules = typeof app.mybricks?.allComModules === 'object' ? app.mybricks?.allComModules : comInstance
   return render(toJson, {
     env: {
-      callConnector: genCallConnector(toJson, _comModules),
+      // callConnector: genCallConnector(toJson, _comModules),
+      callConnector: genCallConnector(app.mybricks.status, _comModules),
       fileUploader(file) {
         return new Promise((resolve, reject) => {
           Taro.uploadFile({
