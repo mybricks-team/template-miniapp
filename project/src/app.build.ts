@@ -21,6 +21,16 @@ const genCallConnector = (toJson, comInstance) => (connector, params) => {
     return callConnectorHttp({ script: comInstance[connector.id] }, params, {
       before(options) {
         let newOptions = { ...options }
+
+        // 已登录用户，自动在 params 中加入 userId
+        let userInfo = Taro.getStorageSync('userInfo');
+        if (userInfo && userInfo.id) {
+          newOptions.data = newOptions.data || {};
+          newOptions.data.params = newOptions.data.params || {};
+          newOptions.data.params.userId = userInfo.id;
+        }
+        /////////////////////////////////
+
         const isInProject = !!toJson?.configuration?.projectId
         if (isInProject) {
           Object.assign(newOptions.data, {
@@ -118,7 +128,7 @@ app.mybricks.ready = init();
 
 class App extends Component<any> {
   onLoad() {
-    
+
   }
 
   componentDidMount() {
