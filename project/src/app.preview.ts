@@ -82,6 +82,50 @@ app.h.render = (toJson, { comDefs, comModules, ref, scenesOperate }) => {
           });
         });
       },
+      openScene(sceneId, params, action) {
+        console.warn("openScene", arguments);
+        
+        switch (action) {
+          case "blank":
+            Taro.navigateTo({
+              url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`,
+              fail() {
+                // 跳转失败的时候，使用 switchTab 重试
+                Taro.switchTab({
+                  url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`
+                });
+              }
+            });
+            break;
+
+          case "redirect":
+            Taro.redirectTo({
+              url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`,
+              fail() {
+                // 跳转失败的时候，使用 switchTab 重试
+                Taro.switchTab({
+                  url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`
+                });
+              }
+            });
+            break;
+
+          default:
+            Taro.navigateTo({
+              url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`,
+              fail() {
+                // 跳转失败的时候，使用 switchTab 重试
+                Taro.switchTab({
+                  url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`
+                });
+              }
+            });
+            break;
+
+        }
+
+        
+      },
       renderCom(json, opts) {
         return new Promise((resolve) => {
           resolve(
