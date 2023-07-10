@@ -642,6 +642,7 @@ export default function init(opts, { observable }) {
                 inputs: props.inputs,
                 outputs: props.outputs,
                 _notifyBindings: props._notifyBindings,
+                _inputsCallable: props._inputsCallable,
                 logger,
                 onError
               })
@@ -653,6 +654,7 @@ export default function init(opts, { observable }) {
                 inputs: props.inputs,
                 outputs: props.outputs,
                 _notifyBindings: props._notifyBindings,
+                _inputsCallable: props._inputsCallable,
                 logger,
                 onError
               })
@@ -958,6 +960,7 @@ export default function init(opts, { observable }) {
               data: props.data,
               inputs: props.inputs,
               outputs: props.outputs,
+              _inputsCallable: props._inputsCallable,
               logger,
               onError
             })
