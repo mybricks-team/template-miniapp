@@ -23,7 +23,7 @@
   ],
   "author": "",
   "dependencies": {
-    "@mybricks/comlib-core": "0.0.20",
+    "@mybricks/comlib-core": "0.0.22",
     "@babel/runtime": "^7.7.7",
     "@tarojs/components": "3.5.11",
     "@tarojs/helper": "3.5.11",
