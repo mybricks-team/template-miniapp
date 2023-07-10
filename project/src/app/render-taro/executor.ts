@@ -6,12 +6,12 @@
  * CheMingjun @2019
  * mybricks@126.com
  */
-import {log, logInputVal, logOutputVal} from './logger';
-import {uuid} from "./utils";
+import { log, logInputVal, logOutputVal } from './logger';
+import { uuid } from "./utils";
 
 const ROOT_FRAME_KEY = '_rootFrame_'
 
-export default function init(opts, {observable}) {
+export default function init(opts, { observable }) {
   const {
     json,
     comInstance,
@@ -64,7 +64,7 @@ export default function init(opts, {observable}) {
       const proxyDesc = PinProxies[inReg.comId + '-' + inReg.pinId]
       if (proxyDesc) {
         _slotValue[`${proxyDesc.frameId}-${proxyDesc.pinId}`] = val
-        if (fromCon&&fromCon.finishPinParentKey !== inReg.startPinParentKey) {
+        if (fromCon && fromCon.finishPinParentKey !== inReg.startPinParentKey) {
           return
         }
 
@@ -186,8 +186,8 @@ export default function init(opts, {observable}) {
   }
 
   function getComProps(comId,
-                       scope?: { id: string, frameId: string, parent },
-                       //ioProxy?: { inputs, outputs, _inputs, _outputs }
+    scope?: { id: string, frameId: string, parent },
+    //ioProxy?: { inputs, outputs, _inputs, _outputs }
   ) {
     const com = Coms[comId]
     if (!com) return null
@@ -253,7 +253,7 @@ export default function init(opts, {observable}) {
       if (!ary) {
         inputTodo[inputId] = ary = []
       }
-      ary.push({val, fromCon, fromScope})
+      ary.push({ val, fromCon, fromScope })
     }
 
     const inputs = function (ioProxy?: { inputs, outputs }) {
@@ -279,7 +279,7 @@ export default function init(opts, {observable}) {
             inputRegs[name] = fn
             const ary = inputTodo[name]
             if (ary) {
-              ary.forEach(({val, fromCon, fromScope}) => {
+              ary.forEach(({ val, fromCon, fromScope }) => {
                 fn(val, new Proxy({}, {//relOutputs
                   get(target, name) {
                     return function (val) {
@@ -316,14 +316,30 @@ export default function init(opts, {observable}) {
             })
 
             Promise.resolve().then(() => {
-              const inReg = {comId, def, pinId: name}
+              const inReg = { comId, def, pinId: name }
               exeInputForCom(inReg, val, scope, reg)
             })
 
             return rtn
           } else {
-            const inReg = {comId, def, pinId: name}
+            const inReg = { comId, def, pinId: name }
             exeInputForCom(inReg, val, scope)
+          }
+        }
+      }
+    })
+
+    const _inputsCallable = new Proxy({}, {
+      get(target, name) {
+        return function (val) {
+          const proxyDesc = PinProxies[comId + '-' + name]
+
+          if (proxyDesc) {
+            scenesOperate?.inputs({
+              ...proxyDesc,
+              value: val,
+              parentScope: rtn
+            })
           }
         }
       }
@@ -396,7 +412,7 @@ export default function init(opts, {observable}) {
                           }
                         })
                         if (def && typeof def.exe === 'function') {
-                          def.exe({options: activeEvt.options})//与设计器中的使用方法对齐
+                          def.exe({ options: activeEvt.options })//与设计器中的使用方法对齐
                         }
                       }
                       break
@@ -490,7 +506,7 @@ export default function init(opts, {observable}) {
     function _notifyBindings(val) {
       if (com.global) {
         scenesOperate?._notifyBindings(val, com)
-        return 
+        return
       }
       const { bindingsTo } = com.model
       if (bindingsTo) {
@@ -526,6 +542,7 @@ export default function init(opts, {observable}) {
       addInputTodo,
       inputs: inputs(),
       inputsCallable,
+      _inputsCallable,
       outputs: outputs(),
       _inputs,
       _outputs,
@@ -559,7 +576,7 @@ export default function init(opts, {observable}) {
   }
 
   function exeInputForCom(inReg, val, scope, outputRels?) {
-    const {comId, def, pinId, pinType, frameKey, finishPinParentKey} = inReg
+    const { comId, def, pinId, pinType, frameKey, finishPinParentKey } = inReg
 
     if (pinType === 'ext') {
       const props = _Props[comId] || getComProps(comId, scope)
@@ -585,7 +602,7 @@ export default function init(opts, {observable}) {
        * 例如：extBinding：data.text
        * 结果：props.data.text = val
        */
-      const {extBinding} = inReg;
+      const { extBinding } = inReg;
       const ary = extBinding.split(".");
       let nowObj = props;
 
@@ -643,7 +660,7 @@ export default function init(opts, {observable}) {
           }
 
           const { realId, realVal, isReady, isMultipleInput } = transformInputId(inReg, val, props)
-          
+
           // 当前pin为 多输入并且输入都已到达 或者 非多输入
           if ((isMultipleInput && isReady) || !isMultipleInput) {
             props._inputRegs[realId](realVal, new Proxy({}, {//relOutputs
@@ -687,7 +704,7 @@ export default function init(opts, {observable}) {
                 get(target, name) {
                   return function (val) {
                     props.outputs[name](val, scope, inReg)//with current scope
-  
+
                     // const rels = _PinRels[id + '-' + pinId]
                     // if (rels) {
                     //   rels.forEach(relId => {
@@ -698,7 +715,7 @@ export default function init(opts, {observable}) {
                 }
               })
             }
-  
+
             fn(realVal, nowRels)//invoke the input,with current scope
           } else {
             props.addInputTodo(realId, realVal, inReg, scope)
@@ -786,7 +803,7 @@ export default function init(opts, {observable}) {
         }
       })
     }
-  
+
     return result
   }
 
@@ -796,7 +813,7 @@ export default function init(opts, {observable}) {
     let rtn = _Props[key]
 
     if (notifyAll && !rtn) {
-      rtn =  _Props[Object.keys(_Props).find((propsKey) => propsKey.startsWith(key)) as string]
+      rtn = _Props[Object.keys(_Props).find((propsKey) => propsKey.startsWith(key)) as string]
     }
 
     if (!rtn) {
@@ -815,7 +832,7 @@ export default function init(opts, {observable}) {
         }
       }
 
-      const Cur = {scope, todo}//保存当前scope，在renderSlot中调用run方法会被更新
+      const Cur = { scope, todo }//保存当前scope，在renderSlot中调用run方法会被更新
 
       const _inputs = new Proxy({}, {
         get(target, name) {
@@ -882,7 +899,7 @@ export default function init(opts, {observable}) {
 
           if (!runExed) {
             runExed = true//only once
-            exeForFrame({comId, frameId: slotId, scope})
+            exeForFrame({ comId, frameId: slotId, scope })
           }
 
           if (Array.isArray(Cur.todo)) {
@@ -918,13 +935,13 @@ export default function init(opts, {observable}) {
   }
 
   function exeForFrame(opts) {
-    const {comId, frameId, scope} = opts
+    const { comId, frameId, scope } = opts
     const idPre = comId ? `${comId}-${frameId}` : `${frameId}`
 
     const autoAry = ComsAutoRun[idPre]
     if (autoAry) {
       autoAry.forEach(com => {
-        const {id, def} = com
+        const { id, def } = com
         const jsCom = Coms[id]
         if (jsCom) {
           const props = getComProps(id, scope)
@@ -951,6 +968,7 @@ export default function init(opts, {observable}) {
               data: props.data,
               inputs: props.inputs,
               outputs: props.outputs,
+              _inputsCallable: props._inputsCallable,
               logger,
               onError
             })
@@ -961,7 +979,7 @@ export default function init(opts, {observable}) {
   }
 
   function exeInputForFrame(opts, val, scope?) {
-    const {frameId, comId, pinId} = opts
+    const { frameId, comId, pinId } = opts
 
     const idPre = comId ? `${comId}-${frameId}` : `${frameId}`
 
@@ -1014,12 +1032,12 @@ export default function init(opts, {observable}) {
   if (typeof ref === 'function') {
     ref({
       run() {
-        exeForFrame({frameId: ROOT_FRAME_KEY})
+        exeForFrame({ frameId: ROOT_FRAME_KEY })
       },
       inputs: new Proxy({}, {
         get(target, pinId) {
           return function (val) {
-            exeInputForFrame({frameId: ROOT_FRAME_KEY, pinId,}, val)
+            exeInputForFrame({ frameId: ROOT_FRAME_KEY, pinId, }, val)
           }
         }
       }),
