@@ -77,6 +77,18 @@ app.h.render = (toJson, { comDefs, comInstance, ref, scenesOperate }) => {
           });
         });
       },
+      openScene() {
+        console.warn("openScene", arguments);
+         //     Taro.navigateTo({
+    //       url: `/pages/${props.frameId}/index?params=${JSON.stringify(props.todo.value)}`,
+    //       fail() {
+    //         // 跳转失败的时候，使用 switchTab 重试
+    //         Taro.switchTab({
+    //           url: `/pages/${props.frameId}/index?params=${JSON.stringify(props.todo.value)}`
+    //         });
+    //       }
+    //     });
+      },
       renderCom(json, opts) {
         return new Promise((resolve) => {
           resolve(

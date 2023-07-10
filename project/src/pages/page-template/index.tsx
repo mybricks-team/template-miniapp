@@ -65,21 +65,21 @@ export default () => {
   let jsx = app.h.render(json, {
     comDefs: comDefs,
     comInstance: comInstance,
-    scenesOperate: {
-      /** 页面跳转 */
-      open(props) {
-        // TODO
-        Taro.navigateTo({
-          url: `/pages/${props.frameId}/index?params=${JSON.stringify(props.todo.value)}`,
-          fail() {
-            // 跳转失败的时候，使用 switchTab 重试
-            Taro.switchTab({
-              url: `/pages/${props.frameId}/index?params=${JSON.stringify(props.todo.value)}`
-            });
-          }
-        });
-      }
-    },
+    // scenesOperate: {
+    //   /** 页面跳转 */
+    //   open(props) {
+    //     // TODO
+    //     Taro.navigateTo({
+    //       url: `/pages/${props.frameId}/index?params=${JSON.stringify(props.todo.value)}`,
+    //       fail() {
+    //         // 跳转失败的时候，使用 switchTab 重试
+    //         Taro.switchTab({
+    //           url: `/pages/${props.frameId}/index?params=${JSON.stringify(props.todo.value)}`
+    //         });
+    //       }
+    //     });
+    //   }
+    // },
     ref: (refs) => {
       ioRefs.current.setRef(refs);
       ioRefs.current.call();
