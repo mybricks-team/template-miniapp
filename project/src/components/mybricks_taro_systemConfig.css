@@ -111,6 +111,7 @@
   position: absolute;
   top: 4px;
   right: 7px;
+  z-index: 10;
 }
 .customNavigation-a2860 .main-dce7e .title-d17f8 {
   width: 100%;

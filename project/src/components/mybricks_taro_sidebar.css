@@ -10,7 +10,8 @@
 }
 .treeSelect-cc510.edit-ab189 {
   width: 375px;
-  height: 667px;
+  min-height: 583px;
+  height: 583px;
 }
 .treeSelect-cc510 .taroify-tree-select__sidebar {
   max-width: 120px;
