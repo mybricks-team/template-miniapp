@@ -295,6 +295,7 @@ const RenderCom = observer(function ({
   // --- 2023.2.21 兼容小程序
   jsx = jsx ? React.createElement('view', {
     id,
+    className: id,
     key: id,
     style: {
       display: style.display,
