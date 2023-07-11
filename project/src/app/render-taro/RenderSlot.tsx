@@ -233,12 +233,18 @@ const RenderCom = observer(function ({
       otherStyle.left = isNumber(style.left) ? style.left + "px" : style.left;
     }
     if (style.position === "fixed") {
-      // --- 2023.3.22 只有固定布局才需要通过设置zIndex达到置顶效果，自由布局不需要设置zIndex，否则永远在最上层
+      // [TODO] --- 2023.3.22 只有固定布局才需要通过设置zIndex达到置顶效果，自由布局不需要设置zIndex，否则永远在最上层
       otherStyle.zIndex = 1000;
+    }
+
+    // [TODO] --- 2023.7.11 小程序不支持createPortal, 所以需要把displate 设置为block
+    if (style.position === 'fixed' && style.display === 'none' && def.namespace === 'mybricks.taro.popup') {
+      otherStyle.zIndex = 1001;
+      otherStyle.display = 'block'
     }
   }
 
-  // --- 2023.2.21 兼容小程序
+  // --- [TODO] 2023.2.21 兼容小程序
 
   // let jsx = (
   //   <comDef.runtime
