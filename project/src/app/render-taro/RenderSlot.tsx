@@ -489,6 +489,11 @@ function calSlotStyles(style, hasParamsStyle) {
     paddingRight,
     paddingBottom,
     background,
+    backgroundColor,
+    backgroundImage,
+    backgroundRepeat,
+    backgroundPosition,
+    backgroundSize,
     ...otherStyle
   } = style;
   let slotStyle = {
@@ -519,7 +524,12 @@ function calSlotStyles(style, hasParamsStyle) {
       slotStyle.backgroundColor = backgroundColor;
     }
   } else {
-    slotStyle.background = background;
+    background && (slotStyle.background = background);
+    backgroundColor && (slotStyle.backgroundColor = backgroundColor);
+    backgroundImage && (slotStyle.backgroundImage = backgroundImage);
+    backgroundRepeat && (slotStyle.backgroundRepeat = backgroundRepeat);
+    backgroundPosition && (slotStyle.backgroundPosition = backgroundPosition);
+    backgroundSize && (slotStyle.backgroundSize = backgroundSize);
   }
 
   if (hasParamsStyle) {
