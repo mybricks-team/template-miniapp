@@ -8,17 +8,18 @@
   z-index: 9999;
   position: relative;
 
-  padding-bottom: calc(50px + constant(safe-area-inset-bottom));
-  padding-bottom: calc(50px + env(safe-area-inset-bottom));
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
 
   .background {
     width: 375px;
-    height: calc(50px + constant(safe-area-inset-bottom));
-    height: calc(50px + env(safe-area-inset-bottom));
+    height: calc(40px + constant(safe-area-inset-bottom));
+    height: calc(40px + env(safe-area-inset-bottom));
     box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.1);
     position: absolute;
     left: 0;
     bottom: 0;
+    background: #ffffff;
   }
 
   .item {
@@ -28,6 +29,8 @@
     justify-content: center;
     color: #333333;
     flex: 1;
+    position: relative;
+    z-index: 10;
 
     .icon {
       display: block;
