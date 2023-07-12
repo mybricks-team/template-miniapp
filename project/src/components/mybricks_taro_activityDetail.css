@@ -3,16 +3,30 @@
   height: 100%;
   min-height: 667px;
   overflow: hidden;
+  transform: scale(1);
   background: #ffffff;
 }
 .detail-c9948 .head-be1f9 {
   position: relative;
+  width: 100%;
   overflow: hidden;
+}
+.detail-c9948 .head-be1f9 .tag-ddd76 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 6px 12px;
+  background: #ea732e;
+  border-bottom-right-radius: 6px;
+  z-index: 1;
+  color: #ffffff;
+  font-size: 12px;
+  line-height: 1;
 }
 .detail-c9948 .head-be1f9 .thumbnail-bd5e7 {
   display: block;
-  width: 375px;
-  height: 171px;
+  width: 100%;
+  height: 222px;
 }
 .detail-c9948 .body-fa118 {
   position: relative;
