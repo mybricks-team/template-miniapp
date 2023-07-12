@@ -88,8 +88,9 @@ export default () => {
       try {
         const value = Taro.getCurrentInstance()?.router?.params;
         console.warn("open", value);
-        
-        refs.inputs['open']?.(JSON.parse(value.params) || {});
+
+        let params = value.params || "{}";
+        refs.inputs['open']?.(JSON.parse(params) || {});
       } catch (e) {
         console.error("open", e);
         refs.inputs['open']?.({});
