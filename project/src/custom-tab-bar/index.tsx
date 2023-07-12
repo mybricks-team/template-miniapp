@@ -44,5 +44,8 @@ export default () => {
   }, [tabBarJson]);
 
 
-  return (<View className={"tabBar"}>{$tabBars}</View>)
+  return (<View className={"tabBar"}>
+    <View className={"background"}></View>
+    {$tabBars}
+  </View>)
 }
