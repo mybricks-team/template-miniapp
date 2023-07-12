@@ -130,22 +130,30 @@
 }
 
 .tabBar-f7d3d {
-  height: 60px;
-  background: #ffffff;
-  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.3);
+  width: 375px;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-around;
   flex-shrink: 0;
   z-index: 9999;
+  position: relative;
+}
+.tabBar-f7d3d .background-babeb {
+  width: 375px;
+  height: 50px;
+  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  left: 0;
+  bottom: 0;
 }
 .tabBar-f7d3d .item-c1680 {
+  padding-top: 6px;
+  padding-bottom: 6px;
   flex: 1;
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   color: #333333;
 }
 .tabBar-f7d3d .item-c1680 .icon-fd1a1 {
