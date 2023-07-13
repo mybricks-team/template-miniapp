@@ -83,6 +83,7 @@ export default () => {
     //   }
     // },
     ref: (refs) => {
+      console.warn('refs ==>', refs)
       ioRefs.current.setRef(refs);
       ioRefs.current.call();
       /** ref注册后，主动触发输入 */
