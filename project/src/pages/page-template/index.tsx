@@ -51,6 +51,7 @@ export default () => {
   }, []);
 
   useDidShow(() => {
+    console.warn('useDidShow', ioRefs.current.ref, ioRefs.current.ref?.ouputs)
     ioRefs.current.ref?.ouputs?.onShow?.();
   });
 
