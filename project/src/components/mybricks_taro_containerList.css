@@ -6,4 +6,10 @@
 .list-d9006 .placeholder-a480e {
   height: 120px;
 }
+.normal-b7f27 .taroify-list__placeholder {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
