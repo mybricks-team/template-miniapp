@@ -10,6 +10,7 @@ const app = Taro.getApp();
 class polyfillIORefs {
   ref = {
     inputs: {},
+    outputs: {},
   };
 
   constructor() {
@@ -50,11 +51,11 @@ export default () => {
   }, []);
 
   useDidShow(() => {
-    ioRefs.current.ref?.inputs?.onPageShow?.();
+    ioRefs.current.ref?.ouputs?.onShow?.();
   });
 
   useDidHide(() => {
-    ioRefs.current.ref?.inputs?.onPageHide?.();
+    ioRefs.current.ref?.ouputs?.onHide?.();
   });
 
   if (!ready) {
