@@ -117,11 +117,6 @@
   width: 100%;
   height: 100%;
 }
-.placeholder-da422 {
-  width: 100%;
-  height: calc(40px + env(safe-area-inset-top));
-  height: calc(40px + constant(safe-area-inset-top));
-}
 
 .emptyCom-dc7f7 {
   width: 100%;
