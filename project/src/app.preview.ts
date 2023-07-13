@@ -65,7 +65,6 @@ app.h.render = (toJson, { comDefs, comModules, ref, scenesOperate }) => {
   }
   return render(toJson, {
     env: {
-      silent: true,
       callConnector: genCallConnector(toJson, _comModules),
       fileUploader(file) {
         return new Promise((resolve, reject) => {
