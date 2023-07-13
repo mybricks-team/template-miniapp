@@ -51,12 +51,11 @@ export default () => {
   }, []);
 
   useDidShow(() => {
-    console.warn('useDidShow', ioRefs.current.ref, ioRefs.current.ref?.ouputs)
-    ioRefs.current.ref?.ouputs?.onShow?.();
+    ioRefs.current.ref?.inputs?.onShow?.();
   });
 
   useDidHide(() => {
-    ioRefs.current.ref?.ouputs?.onHide?.();
+    ioRefs.current.ref?.inputs?.onHide?.();
   });
 
   if (!ready) {
