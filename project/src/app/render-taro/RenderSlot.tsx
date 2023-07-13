@@ -240,6 +240,8 @@ const RenderCom = observer(function ({
     // [TODO] --- 2023.7.11 小程序不支持createPortal, 所以需要把displate 设置为block
     if (style.position === 'fixed' && style.display === 'none' && def.namespace === 'mybricks.taro.popup') {
       otherStyle = { display: 'block', position: 'relative' }
+      delete sizeStyle.width;
+      delete sizeStyle.height;
     }
   }
 
