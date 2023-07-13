@@ -33,19 +33,16 @@ const genCallConnector = (status, comInstance) => (connector, params) => {
         }
         /////////////////////////////////
 
-        const isInProject = !!status?.projectId
+        const isInProject = !!status?.projectId;
+        const isTestEnvApi = status?.apiEnv === 'test';
         if (isInProject) {
           Object.assign(newOptions.data, {
             projectId: status?.projectId
           })
-          return {
-            ...newOptions,
-            url: `${status?.callServiceHost}/runtime/api/domain/service/run`
-          }
         }
         return {
           ...newOptions,
-          url: `${status?.callServiceHost}/api/system/domain/run`
+          url: isTestEnvApi ? `${status?.callServiceHost}/api/system/domain/run` : `${status?.callServiceHost}/runtime/api/domain/service/run`
         }
       }
     })
