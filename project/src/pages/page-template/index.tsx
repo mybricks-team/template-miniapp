@@ -10,6 +10,7 @@ const app = Taro.getApp();
 class polyfillIORefs {
   ref = {
     inputs: {},
+    outputs: {},
   };
 
   constructor() {
@@ -50,11 +51,11 @@ export default () => {
   }, []);
 
   useDidShow(() => {
-    ioRefs.current.ref?.inputs?.onPageShow?.();
+    ioRefs.current.ref?.inputs?.onShow?.();
   });
 
   useDidHide(() => {
-    ioRefs.current.ref?.inputs?.onPageHide?.();
+    ioRefs.current.ref?.inputs?.onHide?.();
   });
 
   if (!ready) {
@@ -81,6 +82,7 @@ export default () => {
     //   }
     // },
     ref: (refs) => {
+      console.warn('refs ==>', refs)
       ioRefs.current.setRef(refs);
       ioRefs.current.call();
       /** ref注册后，主动触发输入 */
@@ -98,5 +100,5 @@ export default () => {
     },
   });
 
-  return <View className="page">{jsx}</View>;
+  return jsx;
 };
