@@ -98,5 +98,5 @@ export default () => {
     },
   });
 
-  return <View className="page">{jsx}</View>;
+  return jsx;
 };
