@@ -5,6 +5,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  overflow: hidden;
 }
 .place-f8f60 {
   position: absolute;

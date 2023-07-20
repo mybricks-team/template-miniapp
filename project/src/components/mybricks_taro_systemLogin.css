@@ -1,20 +1,21 @@
-.login-ebb56 {
+.login-d3633 {
   width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background: #ffffff;
 }
-.login-ebb56.edit-d3c9d {
+.login-d3633.edit-d6ac9 {
   width: 375px;
   height: 667px;
 }
-.login-ebb56 .logo-a7647 {
+.login-d3633 .logo-a193b {
   display: block;
   margin-bottom: 60px;
 }
-.login-ebb56 .button-fbe5c {
+.login-d3633 .button-ccaee {
   width: 270px;
   background: #ea732e;
   font-size: 14px;
@@ -22,7 +23,7 @@
   font-weight: 500;
   color: #ffffff;
 }
-.login-ebb56 .exit-eba12 {
+.login-d3633 .exit-cacad {
   color: #ea732e;
   font-size: 14px;
   line-height: 42px;

@@ -1,4 +1,4 @@
-import com0 from "./mybricks_taro__connector";import com1 from "./mybricks_taro__muilt-inputJs";import com2 from "./mybricks_taro__getCurrentInstance";import com3 from "./mybricks_taro__timerDelay";import com4 from "./mybricks_taro__getOpenid";import com5 from "./mybricks_taro__logout";import com6 from "./mybricks_taro__getUserInfo";import com7 from "./mybricks_taro__goto";import com8 from "./mybricks_taro__navigateBack";import com9 from "./mybricks_taro__toast";import com10 from "./mybricks_taro__showToast";import com11 from "./mybricks_taro__hideToast";import com12 from "./mybricks_taro__showLoading";import com13 from "./mybricks_taro__hideLoading";import com14 from "./mybricks_taro__modal";import com15 from "./mybricks_taro__scan-qrcode";import com16 from "./mybricks_taro__call-phone";import com17 from "./mybricks_taro__get-location";import com18 from "./mybricks_taro__open-location";import com19 from "./mybricks_taro__chooseAddress";import com20 from "./mybricks_taro__requestSubscribeMessage";import com21 from "./mybricks_taro__setStorage";import com22 from "./mybricks_taro__getStorage";import com23 from "./mybricks_taro__chooseLocation";import com24 from "./mybricks_taro_systemConfig";import com25 from "./mybricks_taro_systemNavigation";import com26 from "./mybricks_taro_systemDefaultNavigation";import com27 from "./mybricks_taro_webview";import com28 from "./mybricks_taro_systemLogin";import com29 from "./mybricks_taro_image";import com30 from "./mybricks_taro_video";import com31 from "./mybricks_taro_button";import com32 from "./mybricks_taro_text";import com33 from "./mybricks_taro_richText";import com34 from "./mybricks_taro_swiper";import com35 from "./mybricks_taro_card";import com36 from "./mybricks_taro_containerGrid";import com37 from "./mybricks_taro_containerList";import com38 from "./mybricks_taro_containerListHorizontal";import com39 from "./mybricks_taro_containerCondition";import com40 from "./mybricks_taro_tabs";import com41 from "./mybricks_taro_sidebar";import com42 from "./mybricks_taro_popup";import com43 from "./mybricks_taro_containerSwiper";import com44 from "./mybricks_taro_collapse";import com45 from "./mybricks_taro_formContainer";import com46 from "./mybricks_taro_formInput";import com47 from "./mybricks_taro_formStepper";import com48 from "./mybricks_taro_formTextarea";import com49 from "./mybricks_taro_formSelect";import com50 from "./mybricks_taro_formRadio";import com51 from "./mybricks_taro_formCheckbox";import com52 from "./mybricks_taro_formRate";import com53 from "./mybricks_taro_formDatetime";import com54 from "./mybricks_taro_formSwitch";import com55 from "./mybricks_taro_formLocation";import com56 from "./mybricks_taro_formPassword";import com57 from "./mybricks_taro_formImageUploader";import com58 from "./mybricks_taro_cell";import com59 from "./mybricks_taro_indexList";import com60 from "./mybricks_taro_qrcode";import com61 from "./mybricks_taro_icon";import com62 from "./mybricks_taro_safeArea";import com63 from "./mybricks_taro_support";import com64 from "./mybricks_taro_searchBar";import com65 from "./mybricks_taro_noticeBar";import com66 from "./mybricks_taro_activityCard";import com67 from "./mybricks_taro_activityDetail";import com68 from "./mybricks_taro_groupCard";import com69 from "./mybricks_taro_groupDetail";import com70 from "./mybricks_taro_namecardMini";export default { 
+import com0 from "./mybricks_taro__connector";import com1 from "./mybricks_taro__muilt-inputJs";import com2 from "./mybricks_taro__getCurrentInstance";import com3 from "./mybricks_taro__timerDelay";import com4 from "./mybricks_taro__getOpenid";import com5 from "./mybricks_taro__logout";import com6 from "./mybricks_taro__getUserInfo";import com7 from "./mybricks_taro__goto";import com8 from "./mybricks_taro__navigateBack";import com9 from "./mybricks_taro__toast";import com10 from "./mybricks_taro__showToast";import com11 from "./mybricks_taro__hideToast";import com12 from "./mybricks_taro__showLoading";import com13 from "./mybricks_taro__hideLoading";import com14 from "./mybricks_taro__modal";import com15 from "./mybricks_taro__scan-qrcode";import com16 from "./mybricks_taro__call-phone";import com17 from "./mybricks_taro__get-location";import com18 from "./mybricks_taro__open-location";import com19 from "./mybricks_taro__chooseAddress";import com20 from "./mybricks_taro__requestSubscribeMessage";import com21 from "./mybricks_taro__setStorage";import com22 from "./mybricks_taro__getStorage";import com23 from "./mybricks_taro__chooseLocation";import com24 from "./mybricks_taro_systemTabbar";import com25 from "./mybricks_taro_systemPage";import com26 from "./mybricks_taro_systemWebview";import com27 from "./mybricks_taro_systemLogin";import com28 from "./mybricks_taro_image";import com29 from "./mybricks_taro_video";import com30 from "./mybricks_taro_button";import com31 from "./mybricks_taro_text";import com32 from "./mybricks_taro_richText";import com33 from "./mybricks_taro_swiper";import com34 from "./mybricks_taro_card";import com35 from "./mybricks_taro_containerGrid";import com36 from "./mybricks_taro_containerList";import com37 from "./mybricks_taro_containerListHorizontal";import com38 from "./mybricks_taro_containerCondition";import com39 from "./mybricks_taro_tabs";import com40 from "./mybricks_taro_sidebar";import com41 from "./mybricks_taro_popup";import com42 from "./mybricks_taro_containerSwiper";import com43 from "./mybricks_taro_collapse";import com44 from "./mybricks_taro_formContainer";import com45 from "./mybricks_taro_formInput";import com46 from "./mybricks_taro_formStepper";import com47 from "./mybricks_taro_formTextarea";import com48 from "./mybricks_taro_formSelect";import com49 from "./mybricks_taro_formRadio";import com50 from "./mybricks_taro_formCheckbox";import com51 from "./mybricks_taro_formRate";import com52 from "./mybricks_taro_formDatetime";import com53 from "./mybricks_taro_formSwitch";import com54 from "./mybricks_taro_formLocation";import com55 from "./mybricks_taro_formPassword";import com56 from "./mybricks_taro_formImageUploader";import com57 from "./mybricks_taro_searchBar";import com58 from "./mybricks_taro_cell";import com59 from "./mybricks_taro_indexList";import com60 from "./mybricks_taro_icon";import com61 from "./mybricks_taro_safeArea";import com62 from "./mybricks_taro_support";import com63 from "./mybricks_taro_noticeBar";import com64 from "./mybricks_taro_activityCard";import com65 from "./mybricks_taro_activityDetail";import com66 from "./mybricks_taro_groupCard";import com67 from "./mybricks_taro_groupDetail";import com68 from "./mybricks_taro_namecardMini";export default { 
           "mybricks.taro._connector-1.0.0":{
             "namespace": "mybricks.taro._connector",
             "version": "1.0.0",
@@ -287,410 +287,410 @@ import com0 from "./mybricks_taro__connector";import com1 from "./mybricks_taro
 					"runtime": com23
 				}
 			,
-          "mybricks.taro.systemConfig-1.0.0":{
-            "namespace": "mybricks.taro.systemConfig",
+          "mybricks.taro.systemTabbar-1.0.0":{
+            "namespace": "mybricks.taro.systemTabbar",
             "version": "1.0.0",
             "runtime": com24
           }
         ,
-				"mybricks.taro.systemConfig":{
-					"namespace": "mybricks.taro.systemConfig",
+				"mybricks.taro.systemTabbar":{
+					"namespace": "mybricks.taro.systemTabbar",
 					"version": "1.0.0",
 					"runtime": com24
 				}
 			,
-          "mybricks.taro.systemNavigation-1.0.0":{
-            "namespace": "mybricks.taro.systemNavigation",
-            "version": "1.0.0",
+          "mybricks.taro.systemPage-1.0.1":{
+            "namespace": "mybricks.taro.systemPage",
+            "version": "1.0.1",
             "runtime": com25
           }
         ,
-				"mybricks.taro.systemNavigation":{
-					"namespace": "mybricks.taro.systemNavigation",
-					"version": "1.0.0",
+				"mybricks.taro.systemPage":{
+					"namespace": "mybricks.taro.systemPage",
+					"version": "1.0.1",
 					"runtime": com25
 				}
 			,
-          "mybricks.taro.systemDefaultNavigation-1.0.0":{
-            "namespace": "mybricks.taro.systemDefaultNavigation",
+          "mybricks.taro.systemWebview-1.0.0":{
+            "namespace": "mybricks.taro.systemWebview",
             "version": "1.0.0",
             "runtime": com26
           }
         ,
-				"mybricks.taro.systemDefaultNavigation":{
-					"namespace": "mybricks.taro.systemDefaultNavigation",
+				"mybricks.taro.systemWebview":{
+					"namespace": "mybricks.taro.systemWebview",
 					"version": "1.0.0",
 					"runtime": com26
-				}
-			,
-          "mybricks.taro.webview-1.0.0":{
-            "namespace": "mybricks.taro.webview",
-            "version": "1.0.0",
-            "runtime": com27
-          }
-        ,
-				"mybricks.taro.webview":{
-					"namespace": "mybricks.taro.webview",
-					"version": "1.0.0",
-					"runtime": com27
 				}
 			,
           "mybricks.taro.systemLogin-1.0.0":{
             "namespace": "mybricks.taro.systemLogin",
             "version": "1.0.0",
-            "runtime": com28
+            "runtime": com27
           }
         ,
 				"mybricks.taro.systemLogin":{
 					"namespace": "mybricks.taro.systemLogin",
 					"version": "1.0.0",
-					"runtime": com28
+					"runtime": com27
 				}
 			,
           "mybricks.taro.image-1.0.0":{
             "namespace": "mybricks.taro.image",
             "version": "1.0.0",
-            "runtime": com29
+            "runtime": com28
           }
         ,
 				"mybricks.taro.image":{
 					"namespace": "mybricks.taro.image",
 					"version": "1.0.0",
-					"runtime": com29
+					"runtime": com28
 				}
 			,
           "mybricks.taro.video-1.0.0":{
             "namespace": "mybricks.taro.video",
             "version": "1.0.0",
-            "runtime": com30
+            "runtime": com29
           }
         ,
 				"mybricks.taro.video":{
 					"namespace": "mybricks.taro.video",
 					"version": "1.0.0",
-					"runtime": com30
+					"runtime": com29
 				}
 			,
           "mybricks.taro.button-1.0.15":{
             "namespace": "mybricks.taro.button",
             "version": "1.0.15",
-            "runtime": com31
+            "runtime": com30
           }
         ,
 				"mybricks.taro.button":{
 					"namespace": "mybricks.taro.button",
 					"version": "1.0.15",
-					"runtime": com31
+					"runtime": com30
 				}
 			,
           "mybricks.taro.text-1.0.0":{
             "namespace": "mybricks.taro.text",
             "version": "1.0.0",
-            "runtime": com32
+            "runtime": com31
           }
         ,
 				"mybricks.taro.text":{
 					"namespace": "mybricks.taro.text",
 					"version": "1.0.0",
-					"runtime": com32
+					"runtime": com31
 				}
 			,
           "mybricks.taro.richText-1.0.0":{
             "namespace": "mybricks.taro.richText",
             "version": "1.0.0",
-            "runtime": com33
+            "runtime": com32
           }
         ,
 				"mybricks.taro.richText":{
 					"namespace": "mybricks.taro.richText",
 					"version": "1.0.0",
-					"runtime": com33
+					"runtime": com32
 				}
 			,
           "mybricks.taro.swiper-1.0.6":{
             "namespace": "mybricks.taro.swiper",
             "version": "1.0.6",
-            "runtime": com34
+            "runtime": com33
           }
         ,
 				"mybricks.taro.swiper":{
 					"namespace": "mybricks.taro.swiper",
 					"version": "1.0.6",
-					"runtime": com34
+					"runtime": com33
 				}
 			,
           "mybricks.taro.card-1.0.0":{
             "namespace": "mybricks.taro.card",
             "version": "1.0.0",
-            "runtime": com35
+            "runtime": com34
           }
         ,
 				"mybricks.taro.card":{
 					"namespace": "mybricks.taro.card",
 					"version": "1.0.0",
-					"runtime": com35
+					"runtime": com34
 				}
 			,
           "mybricks.taro.containerGrid-1.0.0":{
             "namespace": "mybricks.taro.containerGrid",
             "version": "1.0.0",
-            "runtime": com36
+            "runtime": com35
           }
         ,
 				"mybricks.taro.containerGrid":{
 					"namespace": "mybricks.taro.containerGrid",
 					"version": "1.0.0",
-					"runtime": com36
+					"runtime": com35
 				}
 			,
           "mybricks.taro.containerList-1.0.0":{
             "namespace": "mybricks.taro.containerList",
             "version": "1.0.0",
-            "runtime": com37
+            "runtime": com36
           }
         ,
 				"mybricks.taro.containerList":{
 					"namespace": "mybricks.taro.containerList",
 					"version": "1.0.0",
-					"runtime": com37
+					"runtime": com36
 				}
 			,
           "mybricks.taro.containerListHorizontal-1.0.0":{
             "namespace": "mybricks.taro.containerListHorizontal",
             "version": "1.0.0",
-            "runtime": com38
+            "runtime": com37
           }
         ,
 				"mybricks.taro.containerListHorizontal":{
 					"namespace": "mybricks.taro.containerListHorizontal",
 					"version": "1.0.0",
-					"runtime": com38
+					"runtime": com37
 				}
 			,
           "mybricks.taro.containerCondition-1.0.0":{
             "namespace": "mybricks.taro.containerCondition",
             "version": "1.0.0",
-            "runtime": com39
+            "runtime": com38
           }
         ,
 				"mybricks.taro.containerCondition":{
 					"namespace": "mybricks.taro.containerCondition",
 					"version": "1.0.0",
-					"runtime": com39
+					"runtime": com38
 				}
 			,
           "mybricks.taro.tabs-1.0.0":{
             "namespace": "mybricks.taro.tabs",
             "version": "1.0.0",
-            "runtime": com40
+            "runtime": com39
           }
         ,
 				"mybricks.taro.tabs":{
 					"namespace": "mybricks.taro.tabs",
 					"version": "1.0.0",
-					"runtime": com40
+					"runtime": com39
 				}
 			,
           "mybricks.taro.sidebar-1.0.0":{
             "namespace": "mybricks.taro.sidebar",
             "version": "1.0.0",
-            "runtime": com41
+            "runtime": com40
           }
         ,
 				"mybricks.taro.sidebar":{
 					"namespace": "mybricks.taro.sidebar",
 					"version": "1.0.0",
-					"runtime": com41
+					"runtime": com40
 				}
 			,
           "mybricks.taro.popup-1.0.0":{
             "namespace": "mybricks.taro.popup",
             "version": "1.0.0",
-            "runtime": com42
+            "runtime": com41
           }
         ,
 				"mybricks.taro.popup":{
 					"namespace": "mybricks.taro.popup",
 					"version": "1.0.0",
-					"runtime": com42
+					"runtime": com41
 				}
 			,
           "mybricks.taro.containerSwiper-1.0.0":{
             "namespace": "mybricks.taro.containerSwiper",
             "version": "1.0.0",
-            "runtime": com43
+            "runtime": com42
           }
         ,
 				"mybricks.taro.containerSwiper":{
 					"namespace": "mybricks.taro.containerSwiper",
 					"version": "1.0.0",
-					"runtime": com43
+					"runtime": com42
 				}
 			,
           "mybricks.taro.collapse-1.0.0":{
             "namespace": "mybricks.taro.collapse",
             "version": "1.0.0",
-            "runtime": com44
+            "runtime": com43
           }
         ,
 				"mybricks.taro.collapse":{
 					"namespace": "mybricks.taro.collapse",
 					"version": "1.0.0",
-					"runtime": com44
+					"runtime": com43
 				}
 			,
           "mybricks.taro.formContainer-1.0.1":{
             "namespace": "mybricks.taro.formContainer",
             "version": "1.0.1",
-            "runtime": com45
+            "runtime": com44
           }
         ,
 				"mybricks.taro.formContainer":{
 					"namespace": "mybricks.taro.formContainer",
 					"version": "1.0.1",
-					"runtime": com45
+					"runtime": com44
 				}
 			,
           "mybricks.taro.formInput-1.0.0":{
             "namespace": "mybricks.taro.formInput",
             "version": "1.0.0",
-            "runtime": com46
+            "runtime": com45
           }
         ,
 				"mybricks.taro.formInput":{
 					"namespace": "mybricks.taro.formInput",
 					"version": "1.0.0",
-					"runtime": com46
+					"runtime": com45
 				}
 			,
           "mybricks.taro.formStepper-1.0.0":{
             "namespace": "mybricks.taro.formStepper",
             "version": "1.0.0",
-            "runtime": com47
+            "runtime": com46
           }
         ,
 				"mybricks.taro.formStepper":{
 					"namespace": "mybricks.taro.formStepper",
 					"version": "1.0.0",
-					"runtime": com47
+					"runtime": com46
 				}
 			,
           "mybricks.taro.formTextarea-1.0.0":{
             "namespace": "mybricks.taro.formTextarea",
             "version": "1.0.0",
-            "runtime": com48
+            "runtime": com47
           }
         ,
 				"mybricks.taro.formTextarea":{
 					"namespace": "mybricks.taro.formTextarea",
 					"version": "1.0.0",
-					"runtime": com48
+					"runtime": com47
 				}
 			,
           "mybricks.taro.formSelect-1.0.0":{
             "namespace": "mybricks.taro.formSelect",
             "version": "1.0.0",
-            "runtime": com49
+            "runtime": com48
           }
         ,
 				"mybricks.taro.formSelect":{
 					"namespace": "mybricks.taro.formSelect",
 					"version": "1.0.0",
-					"runtime": com49
+					"runtime": com48
 				}
 			,
           "mybricks.taro.formRadio-1.0.0":{
             "namespace": "mybricks.taro.formRadio",
             "version": "1.0.0",
-            "runtime": com50
+            "runtime": com49
           }
         ,
 				"mybricks.taro.formRadio":{
 					"namespace": "mybricks.taro.formRadio",
 					"version": "1.0.0",
-					"runtime": com50
+					"runtime": com49
 				}
 			,
           "mybricks.taro.formCheckbox-1.0.0":{
             "namespace": "mybricks.taro.formCheckbox",
             "version": "1.0.0",
-            "runtime": com51
+            "runtime": com50
           }
         ,
 				"mybricks.taro.formCheckbox":{
 					"namespace": "mybricks.taro.formCheckbox",
 					"version": "1.0.0",
-					"runtime": com51
+					"runtime": com50
 				}
 			,
           "mybricks.taro.formRate-1.0.0":{
             "namespace": "mybricks.taro.formRate",
             "version": "1.0.0",
-            "runtime": com52
+            "runtime": com51
           }
         ,
 				"mybricks.taro.formRate":{
 					"namespace": "mybricks.taro.formRate",
 					"version": "1.0.0",
-					"runtime": com52
+					"runtime": com51
 				}
 			,
           "mybricks.taro.formDatetime-1.0.0":{
             "namespace": "mybricks.taro.formDatetime",
             "version": "1.0.0",
-            "runtime": com53
+            "runtime": com52
           }
         ,
 				"mybricks.taro.formDatetime":{
 					"namespace": "mybricks.taro.formDatetime",
 					"version": "1.0.0",
-					"runtime": com53
+					"runtime": com52
 				}
 			,
           "mybricks.taro.formSwitch-1.0.0":{
             "namespace": "mybricks.taro.formSwitch",
             "version": "1.0.0",
-            "runtime": com54
+            "runtime": com53
           }
         ,
 				"mybricks.taro.formSwitch":{
 					"namespace": "mybricks.taro.formSwitch",
 					"version": "1.0.0",
-					"runtime": com54
+					"runtime": com53
 				}
 			,
           "mybricks.taro.formLocation-1.0.0":{
             "namespace": "mybricks.taro.formLocation",
             "version": "1.0.0",
-            "runtime": com55
+            "runtime": com54
           }
         ,
 				"mybricks.taro.formLocation":{
 					"namespace": "mybricks.taro.formLocation",
 					"version": "1.0.0",
-					"runtime": com55
+					"runtime": com54
 				}
 			,
           "mybricks.taro.formPassword-1.0.1":{
             "namespace": "mybricks.taro.formPassword",
             "version": "1.0.1",
-            "runtime": com56
+            "runtime": com55
           }
         ,
 				"mybricks.taro.formPassword":{
 					"namespace": "mybricks.taro.formPassword",
 					"version": "1.0.1",
-					"runtime": com56
+					"runtime": com55
 				}
 			,
           "mybricks.taro.formImageUploader-1.0.0":{
             "namespace": "mybricks.taro.formImageUploader",
             "version": "1.0.0",
-            "runtime": com57
+            "runtime": com56
           }
         ,
 				"mybricks.taro.formImageUploader":{
 					"namespace": "mybricks.taro.formImageUploader",
+					"version": "1.0.0",
+					"runtime": com56
+				}
+			,
+          "mybricks.taro.searchBar-1.0.0":{
+            "namespace": "mybricks.taro.searchBar",
+            "version": "1.0.0",
+            "runtime": com57
+          }
+        ,
+				"mybricks.taro.searchBar":{
+					"namespace": "mybricks.taro.searchBar",
 					"version": "1.0.0",
 					"runtime": com57
 				}
@@ -719,135 +719,111 @@ import com0 from "./mybricks_taro__connector";import com1 from "./mybricks_taro
 					"runtime": com59
 				}
 			,
-          "mybricks.taro.qrcode-1.0.0":{
-            "namespace": "mybricks.taro.qrcode",
-            "version": "1.0.0",
-            "runtime": com60
-          }
-        ,
-				"mybricks.taro.qrcode":{
-					"namespace": "mybricks.taro.qrcode",
-					"version": "1.0.0",
-					"runtime": com60
-				}
-			,
           "mybricks.taro.icon-1.0.0":{
             "namespace": "mybricks.taro.icon",
             "version": "1.0.0",
-            "runtime": com61
+            "runtime": com60
           }
         ,
 				"mybricks.taro.icon":{
 					"namespace": "mybricks.taro.icon",
 					"version": "1.0.0",
-					"runtime": com61
+					"runtime": com60
 				}
 			,
           "mybricks.taro.safeArea-1.0.0":{
             "namespace": "mybricks.taro.safeArea",
             "version": "1.0.0",
-            "runtime": com62
+            "runtime": com61
           }
         ,
 				"mybricks.taro.safeArea":{
 					"namespace": "mybricks.taro.safeArea",
 					"version": "1.0.0",
-					"runtime": com62
+					"runtime": com61
 				}
 			,
           "mybricks.taro.support-1.0.0":{
             "namespace": "mybricks.taro.support",
             "version": "1.0.0",
-            "runtime": com63
+            "runtime": com62
           }
         ,
 				"mybricks.taro.support":{
 					"namespace": "mybricks.taro.support",
 					"version": "1.0.0",
-					"runtime": com63
-				}
-			,
-          "mybricks.taro.searchBar-1.0.0":{
-            "namespace": "mybricks.taro.searchBar",
-            "version": "1.0.0",
-            "runtime": com64
-          }
-        ,
-				"mybricks.taro.searchBar":{
-					"namespace": "mybricks.taro.searchBar",
-					"version": "1.0.0",
-					"runtime": com64
+					"runtime": com62
 				}
 			,
           "mybricks.taro.noticeBar-1.0.0":{
             "namespace": "mybricks.taro.noticeBar",
             "version": "1.0.0",
-            "runtime": com65
+            "runtime": com63
           }
         ,
 				"mybricks.taro.noticeBar":{
 					"namespace": "mybricks.taro.noticeBar",
 					"version": "1.0.0",
-					"runtime": com65
+					"runtime": com63
 				}
 			,
           "mybricks.taro.activityCard-1.0.2":{
             "namespace": "mybricks.taro.activityCard",
             "version": "1.0.2",
-            "runtime": com66
+            "runtime": com64
           }
         ,
 				"mybricks.taro.activityCard":{
 					"namespace": "mybricks.taro.activityCard",
 					"version": "1.0.2",
-					"runtime": com66
+					"runtime": com64
 				}
 			,
           "mybricks.taro.activityDetail-1.0.3":{
             "namespace": "mybricks.taro.activityDetail",
             "version": "1.0.3",
-            "runtime": com67
+            "runtime": com65
           }
         ,
 				"mybricks.taro.activityDetail":{
 					"namespace": "mybricks.taro.activityDetail",
 					"version": "1.0.3",
-					"runtime": com67
+					"runtime": com65
 				}
 			,
           "mybricks.taro.groupCard-1.0.0":{
             "namespace": "mybricks.taro.groupCard",
             "version": "1.0.0",
-            "runtime": com68
+            "runtime": com66
           }
         ,
 				"mybricks.taro.groupCard":{
 					"namespace": "mybricks.taro.groupCard",
 					"version": "1.0.0",
-					"runtime": com68
+					"runtime": com66
 				}
 			,
           "mybricks.taro.groupDetail-1.0.0":{
             "namespace": "mybricks.taro.groupDetail",
             "version": "1.0.0",
-            "runtime": com69
+            "runtime": com67
           }
         ,
 				"mybricks.taro.groupDetail":{
 					"namespace": "mybricks.taro.groupDetail",
 					"version": "1.0.0",
-					"runtime": com69
+					"runtime": com67
 				}
 			,
           "mybricks.taro.namecardMini-1.0.0":{
             "namespace": "mybricks.taro.namecardMini",
             "version": "1.0.0",
-            "runtime": com70
+            "runtime": com68
           }
         ,
 				"mybricks.taro.namecardMini":{
 					"namespace": "mybricks.taro.namecardMini",
 					"version": "1.0.0",
-					"runtime": com70
+					"runtime": com68
 				}
 			 };
