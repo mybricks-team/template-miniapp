@@ -15,7 +15,7 @@ const app = Taro.getApp({
 
 app.h = app.h || {};
 
-const genCallConnector = (toJson, comModules) => (connector, params) => {
+const genCallConnector = (status, comModules) => (connector, params) => {
   if (connector.type === 'http') {
     //服务接口类型
     return callConnectorHttp({ script: comModules[connector.id] }, params)
@@ -35,19 +35,19 @@ const genCallConnector = (toJson, comModules) => (connector, params) => {
         }
         /////////////////////////////////
 
-        const isInProject = !!toJson?.configuration?.projectId
+        const isInProject = !!status?.projectId;
         if (isInProject) {
           Object.assign(newOptions.data, {
-            projectId: toJson?.configuration?.projectId
+            projectId: status?.projectId
           })
           return {
             ...newOptions,
-            url: `${toJson?.configuration?.serviceDomain}/runtime/api/domain/service/run`
+            url: `${status?.callServiceHost}/runtime/api/domain/service/run`
           }
         }
         return {
           ...newOptions,
-          url: `${toJson?.configuration?.serviceDomain}/api/system/domain/run`
+          url: `${status?.callServiceHost}/api/system/domain/run`
         }
       }
     })
@@ -65,7 +65,8 @@ app.h.render = (toJson, { comDefs, comModules, ref, scenesOperate }) => {
   }
   return render(toJson, {
     env: {
-      callConnector: genCallConnector(toJson, _comModules),
+      // callConnector: genCallConnector(toJson, _comModules),
+      callConnector: genCallConnector(app.mybricks.status, _comModules),
       fileUploader(file) {
         return new Promise((resolve, reject) => {
           Taro.uploadFile({
@@ -82,49 +83,49 @@ app.h.render = (toJson, { comDefs, comModules, ref, scenesOperate }) => {
           });
         });
       },
-      openScene(sceneId, params, action) {
-        console.warn("openScene", arguments);
-        
-        switch (action) {
-          case "blank":
-            Taro.navigateTo({
-              url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`,
-              fail() {
-                // 跳转失败的时候，使用 switchTab 重试
-                Taro.switchTab({
-                  url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`
-                });
-              }
-            });
-            break;
+      canvas: {
+        id: toJson?.id,
+        open(sceneId, params, action) {
+          console.warn("open", arguments);
 
-          case "redirect":
-            Taro.redirectTo({
-              url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`,
-              fail() {
-                // 跳转失败的时候，使用 switchTab 重试
-                Taro.switchTab({
-                  url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`
-                });
-              }
-            });
-            break;
+          switch (action) {
+            case "blank":
+              Taro.navigateTo({
+                url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`,
+                fail() {
+                  // 跳转失败的时候，使用 switchTab 重试
+                  Taro.switchTab({
+                    url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`
+                  });
+                }
+              });
+              break;
 
-          default:
-            Taro.navigateTo({
-              url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`,
-              fail() {
-                // 跳转失败的时候，使用 switchTab 重试
-                Taro.switchTab({
-                  url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`
-                });
-              }
-            });
-            break;
+            case "redirect":
+              Taro.redirectTo({
+                url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`,
+                fail() {
+                  // 跳转失败的时候，使用 switchTab 重试
+                  Taro.switchTab({
+                    url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`
+                  });
+                }
+              });
+              break;
 
-        }
-
-        
+            default:
+              Taro.navigateTo({
+                url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`,
+                fail() {
+                  // 跳转失败的时候，使用 switchTab 重试
+                  Taro.switchTab({
+                    url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`
+                  });
+                }
+              });
+              break;
+          }
+        },
       },
       renderCom(json, opts) {
         return new Promise((resolve) => {

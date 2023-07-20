@@ -42,7 +42,9 @@ const genCallConnector = (status, comInstance) => (connector, params) => {
         }
         return {
           ...newOptions,
-          url: isTestEnvApi ? `${status?.callServiceHost}/api/system/domain/run` : `${status?.callServiceHost}/runtime/api/domain/service/run`
+          url: isTestEnvApi
+            ? `${status?.callServiceHost}/api/system/domain/run`
+            : `${status?.callServiceHost}/runtime/api/domain/service/run`
         }
       }
     })
@@ -56,7 +58,6 @@ app.h.render = (toJson, { comDefs, comInstance, ref, scenesOperate }) => {
   const _comModules = typeof app.mybricks?.allComModules === 'object' ? app.mybricks?.allComModules : comInstance
   return render(toJson, {
     env: {
-      // callConnector: genCallConnector(toJson, _comModules),
       callConnector: genCallConnector(app.mybricks.status, _comModules),
       fileUploader(file) {
         return new Promise((resolve, reject) => {
@@ -74,49 +75,49 @@ app.h.render = (toJson, { comDefs, comInstance, ref, scenesOperate }) => {
           });
         });
       },
-      openScene(sceneId, params, action) {
-        console.warn("openScene", arguments);
-        
-        switch (action) {
-          case "blank":
-            Taro.navigateTo({
-              url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`,
-              fail() {
-                // 跳转失败的时候，使用 switchTab 重试
-                Taro.switchTab({
-                  url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`
-                });
-              }
-            });
-            break;
+      canvas: {
+        id: toJson?.id,
+        open(sceneId, params, action) {
+          console.warn("open", arguments);
 
-          case "redirect":
-            Taro.redirectTo({
-              url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`,
-              fail() {
-                // 跳转失败的时候，使用 switchTab 重试
-                Taro.switchTab({
-                  url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`
-                });
-              }
-            });
-            break;
+          switch (action) {
+            case "blank":
+              Taro.navigateTo({
+                url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`,
+                fail() {
+                  // 跳转失败的时候，使用 switchTab 重试
+                  Taro.switchTab({
+                    url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`
+                  });
+                }
+              });
+              break;
 
-          default:
-            Taro.navigateTo({
-              url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`,
-              fail() {
-                // 跳转失败的时候，使用 switchTab 重试
-                Taro.switchTab({
-                  url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`
-                });
-              }
-            });
-            break;
+            case "redirect":
+              Taro.redirectTo({
+                url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`,
+                fail() {
+                  // 跳转失败的时候，使用 switchTab 重试
+                  Taro.switchTab({
+                    url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`
+                  });
+                }
+              });
+              break;
 
-        }
-
-        
+            default:
+              Taro.navigateTo({
+                url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`,
+                fail() {
+                  // 跳转失败的时候，使用 switchTab 重试
+                  Taro.switchTab({
+                    url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`
+                  });
+                }
+              });
+              break;
+          }
+        },
       },
       renderCom(json, opts) {
         return new Promise((resolve) => {
