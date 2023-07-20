@@ -1,14 +1,14 @@
 import React, { useCallback, useMemo } from 'react';
-import Taro from '@tarojs/taro'
-import { CoverView, CoverImage, View, Image } from '@tarojs/components'
-import "./style.less";
+import * as Taro from '@tarojs/taro'
+import { View, Image } from '@tarojs/components'
 import cx from "classnames";
+import "./style.less";
 
 let tabBarJson = 'TEMPLATE:TABBARLIST';
 
 export default () => {
 
-  const switchTab = useCallback((index, url) => {
+  const switchTab = useCallback((url) => {
     Taro.switchTab({ url: `/${url}` })
   }, []);
 
@@ -18,34 +18,48 @@ export default () => {
     let currentRoute = pages[pages.length - 1].route;
 
     let _tabBarJson = Array.isArray(tabBarJson) ? tabBarJson : [];
+
     return _tabBarJson.map((raw, index) => {
       let pagePath = raw.pagePath;
 
       let isSelected = pagePath === currentRoute;
-
-      let itemCx = cx({
-        "item": true,
-        "selected": true
-      });
 
       let icon = isSelected ? raw.selectedIconPath : raw.normalIconPath;
 
       let iconStyle = isSelected ? raw.selectedIconStyle : raw.normalIconStyle;
       let textStyle = isSelected ? raw.selectedTextStyle : raw.normalTextStyle;
 
+      let iconSlotCx = cx({
+        ["iconSlot"]: true,
+        ["iconSlotCenter"]: !raw.text
+      });
+
       return (
-        <View className={itemCx} onClick={() => { switchTab(index, raw.pagePath); }}>
-          <Image className={"icon"} style={{ ...iconStyle }} src={icon}></Image>
-          <View className={"text"} style={{ ...textStyle }}>{raw.text}</View>
+        <View className={"item"} onClick={() => { switchTab(raw.pagePath); }}>
+
+          <View className={iconSlotCx}>
+            <Image className={"icon"} style={{ ...iconStyle }} src={icon}></Image>
+          </View>
+
+          <View className={"textSlot"}>
+            <View className={"text"} style={{ ...textStyle }}>{raw.text}</View>
+          </View>
         </View>
       )
     });
 
   }, [tabBarJson]);
 
+  return (
+    <View className={"tabBar"}>
+      <View className={"items"}>
+        {$tabBars}
+      </View>
+    </View>
+  )
 
-  return (<View className={"tabBar"}>
-    <View className={"background"}></View>
-    {$tabBars}
-  </View>)
+  // return (<View className={"tabBar"}>
+  //   <View className={"background"}></View>
+  //   {$tabBars}
+  // </View>)
 }
