@@ -10,6 +10,12 @@
     display: flex;
   }
 
+  .safearea {
+    width: 375px;
+    height: constant(safe-area-inset-bottom);
+    height: env(safe-area-inset-bottom);
+  }
+
   .item {
     flex: 1;
     height: 100%;

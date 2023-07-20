@@ -55,11 +55,7 @@ export default () => {
       <View className={"items"}>
         {$tabBars}
       </View>
+      <View className={"safearea"}></View>
     </View>
   )
-
-  // return (<View className={"tabBar"}>
-  //   <View className={"background"}></View>
-  //   {$tabBars}
-  // </View>)
 }
