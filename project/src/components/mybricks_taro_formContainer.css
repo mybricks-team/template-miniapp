@@ -10,10 +10,16 @@
 .form-a1d4d {
   width: 100%;
 }
+.form-a1d4d .mybricks-field.border-bottom::after {
+  display: block;
+}
 .form-a1d4d .foot-b0f21 {
   width: 100%;
   margin-top: 24px;
   display: flex;
   align-items: center;
+}
+.form-a1d4d .hidden-e1eab {
+  display: none !important;
 }
 

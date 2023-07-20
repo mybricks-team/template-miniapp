@@ -37,7 +37,12 @@
   border-bottom-right-radius: 10px;
   height: 270px;
 }
-.detail-c9948 .head-be1f9 .thumbnail-bd5e7 {
+.detail-c9948 .head-be1f9 .thumbnailSlot-b132d {
+  width: 375px;
+  height: 171px;
+  position: relative;
+}
+.detail-c9948 .head-be1f9 .thumbnailSlot-b132d .thumbnail-bd5e7 {
   display: block;
   width: 375px;
   height: 171px;
@@ -58,6 +63,7 @@
   color: #666666;
   font-size: 12px;
   line-height: 18px;
+  height: 18px;
   display: flex;
   align-items: center;
 }
@@ -79,6 +85,7 @@
   color: #666666;
   font-size: 12px;
   line-height: 18px;
+  height: 18px;
   display: flex;
   align-items: center;
 }
