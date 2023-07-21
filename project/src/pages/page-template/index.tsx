@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
-import Taro, { useDidShow, useDidHide, useRouter } from "@tarojs/taro";
+import Taro, { useDidShow, useDidHide, useRouter, usePullIntercept, usePullDownRefresh, useReachBottom, usePageScroll, useShareAppMessage, useShareTimeline } from "@tarojs/taro";
 import comInstance from "./comModules";
 import comDefs from "./comDefs";
 import { View } from "@tarojs/components";
@@ -56,6 +56,30 @@ export default () => {
 
   useDidHide(() => {
     ioRefs.current.ref?.inputs?.onHide?.();
+  });
+
+  usePullDownRefresh(() => {
+    ioRefs.current.ref?.inputs?.onPullDownRefresh?.();
+  });
+
+  usePullIntercept(() => {
+    ioRefs.current.ref?.inputs?.onPullIntercept?.();
+  });
+
+  useReachBottom(() => {
+    ioRefs.current.ref?.inputs?.onReachBottom?.();
+  });
+
+  usePageScroll((e) => {
+    ioRefs.current.ref?.inputs?.onPageScroll?.(e);
+  });
+
+  useShareAppMessage((e) => {
+    return ioRefs.current.ref?.inputs?.onShareAppMessage?.(e);
+  });
+
+  useShareTimeline((e) => {
+    return ioRefs.current.ref?.inputs?.onShareTimeline?.(e);
   });
 
   if (!ready) {
