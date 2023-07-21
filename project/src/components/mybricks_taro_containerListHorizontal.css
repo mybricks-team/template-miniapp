@@ -2,13 +2,6 @@
   display: flex;
   flex-wrap: nowrap;
 }
-.list-a092c .mock-c685c {
-  position: relative;
-}
-.list-a092c .mock-c685c > taro-view-core {
-  opacity: 0.4;
-  filter: blur(0.8px);
-}
 .list-a092c .placeholder-cf667 {
   flex: 1;
   height: 120px;
