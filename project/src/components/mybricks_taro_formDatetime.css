@@ -12,4 +12,7 @@
   align-items: center;
   width: 100%;
 }
+.select-bbc5f .taroify-input--readonly {
+  color: var(--input-color, var(--text-color, var(--gray-8, #323233)));
+}
 
