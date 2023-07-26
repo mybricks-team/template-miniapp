@@ -3,9 +3,10 @@ import Taro, { useDidShow, useDidHide, useRouter, usePullIntercept, usePullDownR
 import comInstance from "./comModules";
 import comDefs from "./comDefs";
 import { View } from "@tarojs/components";
+import { getGlobalData } from './../../utils'
 import "./style.less";
 
-const app = Taro.getApp();
+const app = getGlobalData();
 
 class polyfillIORefs {
   ref = {
@@ -86,7 +87,8 @@ export default () => {
     return null;
   }
 
-  const json = app.mybricks.pageJsonMap[router.path.slice(1)];
+  const json = app.mybricks.pageJsonMap[router.path.slice(1).split('?')?.[0]];
+  
   let jsx = app.h.render(json, {
     comDefs: comDefs,
     comInstance: comInstance,
