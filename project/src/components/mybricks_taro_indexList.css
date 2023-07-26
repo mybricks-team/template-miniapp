@@ -7,8 +7,15 @@
   width: 100vw;
   height: 100vh;
 }
+.indexList-ba1bb .taroify-index-list__anchor {
+  background-color: #f5f5f5;
+}
 .indexList-ba1bb.edit-d3084 {
-  width: 375px;
+  width: 100%;
   height: 667px;
+}
+.h5-ae8e0 .taroify-cell::after {
+  border-bottom-width: 1px;
+  transform: none;
 }
 

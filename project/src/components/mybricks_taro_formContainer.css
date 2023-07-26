@@ -13,6 +13,9 @@
 .form-a1d4d .mybricks-field.border-bottom::after {
   display: block;
 }
+.form-a1d4d .mybricks-field.border-none::after {
+  display: none;
+}
 .form-a1d4d .foot-b0f21 {
   width: 100%;
   margin-top: 24px;
@@ -21,5 +24,9 @@
 }
 .form-a1d4d .hidden-e1eab {
   display: none !important;
+}
+.h5-f05c1 .taroify-cell::after {
+  border-bottom-width: 1px;
+  transform: none;
 }
 
