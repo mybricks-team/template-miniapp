@@ -6,12 +6,11 @@ import './app/render-taro/index.css'
 import { call as callConnectorHttp } from "./app/utils/callConnectorHttp-ktaro";
 import './app/utils/pxToRpx';
 import { Interpreter } from "mybricks-utils-mp-render/lib";
+import { getGlobalData } from './utils'
 
 import "./app.less";
 
-const app = Taro.getApp({
-  allowDefault: true,
-});
+const app = getGlobalData();
 
 app.h = app.h || {};
 

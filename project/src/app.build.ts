@@ -4,12 +4,11 @@ import { render } from "./app/render-taro"
 import './app/render-taro/index.css'
 import { call as callConnectorHttp } from "./app/utils/callConnectorHttp-ktaro";
 import './app/utils/pxToRpx';
+import { getGlobalData } from './utils'
 
 import "./app.less";
 
-const app = Taro.getApp({
-  allowDefault: true,
-});
+const app = getGlobalData();
 
 app.h = app.h || {};
 
