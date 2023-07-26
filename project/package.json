@@ -9,12 +9,12 @@
     "css": "none"
   },
   "scripts": {
-    "build:weapp": "node ./scripts/build.js",
+    "build:weapp": "node ./scripts/build.js weapp",
     "build:alipay": "./node_modules/@tarojs/cli/bin/taro build --type alipay",
-    "build:h5": "./node_modules/@tarojs/cli/bin/taro build --type h5",
+    "build:h5": "node ./scripts/build.js h5",
     "dev:weapp": "node ./scripts/dev.js",
     "dev:alipay": "npm run build:alipay -- --watch",
-    "dev:h5": "npm run build:h5 -- --watch"
+    "dev:h5": "node ./scripts/dev.js h5"
   },
   "browserslist": [
     "last 3 versions",
@@ -34,6 +34,7 @@
     "@tarojs/plugin-platform-swan": "3.5.11",
     "@tarojs/plugin-platform-tt": "3.5.11",
     "@tarojs/plugin-platform-weapp": "3.5.11",
+    "@tarojs/plugin-platform-h5": "3.6.0",
     "@tarojs/react": "3.5.11",
     "@tarojs/runtime": "3.5.11",
     "@tarojs/shared": "3.5.11",
