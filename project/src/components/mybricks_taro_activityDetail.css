@@ -182,7 +182,7 @@
   flex-shrink: 0;
   margin-top: 8px;
   overflow-x: auto;
-  height: 54px;
+  height: 60px;
 }
 .userList-f4ce9 .item-cbc20 {
   flex-shrink: 0;
@@ -190,7 +190,7 @@
   flex-direction: column;
   align-items: center;
   width: 42px;
-  height: 54px;
+  height: 60px;
   margin-right: 12px;
   overflow: hidden;
 }
@@ -208,9 +208,8 @@
 .userList-f4ce9 .item-cbc20 .nickname-f3ca4 {
   color: #666666;
   font-size: 12px;
-  line-height: 12px;
-  height: 12px;
-  margin-top: 4px;
+  line-height: 18px;
+  height: 18px;
   width: 100%;
   text-align: center;
   overflow: hidden;
