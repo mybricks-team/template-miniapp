@@ -3,6 +3,6 @@
   height: 100% !important;
   position: relative !important;
 
-  overflow-x: hidden;
-  overflow-y: auto;
+  /* overflow-x: hidden; */
+  /* overflow-y: auto; */
 }

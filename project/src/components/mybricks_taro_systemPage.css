@@ -28,6 +28,25 @@
   height: calc(54px + constant(safe-area-inset-bottom));
   height: calc(54px + env(safe-area-inset-bottom));
 }
+.footerPlaceholder-cb11b {
+  width: 100%;
+  height: constant(safe-area-inset-bottom);
+  height: env(safe-area-inset-bottom);
+}
+.footer-e10fd {
+  width: 100%;
+  position: relative;
+  transform: scale(1);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 10000;
+}
+.footer-e10fd .safearea-b2947 {
+  width: 100%;
+  height: constant(safe-area-inset-bottom);
+  height: env(safe-area-inset-bottom);
+}
 
 .defaultNavigation-e94c0 .safearea-d84f4 {
   width: 100%;
