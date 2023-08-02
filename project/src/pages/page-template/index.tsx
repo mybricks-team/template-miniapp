@@ -88,7 +88,7 @@ export default () => {
   }
 
   const json = app.mybricks.pageJsonMap[router.path.slice(1).split('?')?.[0]];
-  
+
   let jsx = app.h.render(json, {
     comDefs: comDefs,
     comInstance: comInstance,
@@ -117,7 +117,7 @@ export default () => {
         console.warn("open", value);
 
         let params = value.params || "{}";
-        refs.inputs['open']?.(JSON.parse(params) || {});
+        refs.inputs['open']?.(JSON.parse(decodeURIComponent(params)) || {});
       } catch (e) {
         console.error("open", e);
         refs.inputs['open']?.({});
