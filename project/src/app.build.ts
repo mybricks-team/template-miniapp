@@ -3,10 +3,13 @@ import { Component } from "react";
 import { render } from "./app/render-taro"
 import './app/render-taro/index.css'
 import { call as callConnectorHttp } from "./app/utils/callConnectorHttp-ktaro";
+import { EventEmitter } from './app/utils/event'
 import './app/utils/pxToRpx';
 import { getGlobalData } from './utils'
 
 import "./app.less";
+
+const eventEmitter = new EventEmitter()
 
 const app = getGlobalData();
 
@@ -142,6 +145,14 @@ app.h.render = (toJson, { comDefs, comInstance, ref, scenesOperate }) => {
           );
         });
       },
+      // event: eventEmitter,
+      rootScroll: {
+        onScroll: cb => eventEmitter.addEventListner(`rootScroll_${toJson?.id}`, cb),
+        emitScrollEvent: (payload) => eventEmitter.dispatch(`rootScroll_${toJson?.id}`, payload),
+        scrollTo: ({ scrollTop = 0 }) => {},
+        getBoundingClientRect: Promise.resolve()
+      },
+      silent: true,
     },
     events: [],
     comDefs: comDefs,
