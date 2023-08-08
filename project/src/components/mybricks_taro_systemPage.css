@@ -1,13 +1,16 @@
 .page-b6a09 {
   width: 375px;
-  min-height: 100vh;
   position: relative;
   display: flex;
   flex-direction: column;
   background: #ffffff;
+  height: 100vh;
+  overflow: hidden;
 }
 .page-b6a09 .content-aa930 {
   flex: 1;
+  overflow: scroll;
+  height: 1px;
 }
 .fixedTop-ac522 {
   position: fixed;
