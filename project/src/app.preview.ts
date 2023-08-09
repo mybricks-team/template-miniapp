@@ -17,9 +17,9 @@ app.h = app.h || {};
 const genCallConnector = (status, comModules) => (connector, params) => {
   if (connector.type === 'http') {
     //服务接口类型
-    return callConnectorHttp({ script: comModules[connector.id] }, params)
+    return callConnectorHttp(comModules[connector.id], params)
   } else if (connector.type === 'http-sql') {
-    return callConnectorHttp({ script: comModules[connector.id] }, params, {
+    return callConnectorHttp(comModules[connector.id], params, {
       before(options) {
         let newOptions = { ...options }
 
@@ -64,7 +64,6 @@ app.h.render = (toJson, { comDefs, comModules, ref, scenesOperate }) => {
   }
   return render(toJson, {
     env: {
-      // callConnector: genCallConnector(toJson, _comModules),
       callConnector: genCallConnector(app.mybricks.status, _comModules),
       fileUploader(file) {
         return new Promise((resolve, reject) => {
@@ -144,7 +143,6 @@ app.h.render = (toJson, { comDefs, comModules, ref, scenesOperate }) => {
                 events: [],
                 comDefs: _comDefs,
                 comInstance: _comModules,
-                // callConnector: genCallConnector(toJson, _comModules),
               }
             ),
           );
