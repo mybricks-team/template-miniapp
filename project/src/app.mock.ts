@@ -16,9 +16,9 @@ app.h = app.h || {};
 const genCallConnector = (status, comInstance) => (connector, params) => {
   if (connector.type === 'http') {
     //服务接口类型
-    return callConnectorHttp({ script: comInstance[connector.id] }, params)
+    return callConnectorHttp(comInstance[connector.id], params)
   } else if (connector.type === 'http-sql') {
-    return callConnectorHttp({ script: comInstance[connector.id] }, params, {
+    return callConnectorHttp(comInstance[connector.id], params, {
       before(options) {
         let newOptions = { ...options }
 
