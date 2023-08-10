@@ -64,7 +64,7 @@ app.h.render = (toJson, { comDefs, comInstance, ref, scenesOperate }) => {
       fileUploader(file) {
         return new Promise((resolve, reject) => {
           Taro.uploadFile({
-            url: `${toJson?.configuration?.serviceDomain}/paas/api/flow/saveFile`,
+            url: `${toJson?.configuration?.serviceDomain}/paas/api/oss/uploadFile`,
             filePath: file.path,
             name: "file",
             formData: {
