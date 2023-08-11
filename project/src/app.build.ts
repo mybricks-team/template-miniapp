@@ -6,6 +6,7 @@ import { call as callConnectorHttp } from "./app/utils/callConnectorHttp-ktaro";
 import { EventEmitter } from './app/utils/event'
 import './app/utils/pxToRpx';
 import { getGlobalData } from './utils'
+import injectConfig from './mybricks/root-config'
 
 import "./app.less";
 
@@ -82,41 +83,33 @@ app.h.render = (toJson, { comDefs, comInstance, ref, scenesOperate }) => {
         open(sceneId, params, action) {
           console.warn("open", arguments);
 
+          const { routeMap = {} } = injectConfig ?? {}
+          const pagePath = routeMap?.[sceneId] ?? `/pages/${sceneId}/index`;
+
+          const goto = (type: 'navigateTo' | 'redirectTo', url) => {
+            const goRoute = type === 'navigateTo' ? Taro.navigateTo : Taro.redirectTo
+            goRoute({
+              url,
+              fail() {
+                // 跳转失败的时候，使用 switchTab 重试
+                Taro.switchTab({
+                  url
+                });
+              }
+            });
+          }
+
           switch (action) {
             case "blank":
-              Taro.navigateTo({
-                url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`,
-                fail() {
-                  // 跳转失败的时候，使用 switchTab 重试
-                  Taro.switchTab({
-                    url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`
-                  });
-                }
-              });
+              goto('navigateTo', `${pagePath}?params=${JSON.stringify(params)}`)
               break;
 
             case "redirect":
-              Taro.redirectTo({
-                url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`,
-                fail() {
-                  // 跳转失败的时候，使用 switchTab 重试
-                  Taro.switchTab({
-                    url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`
-                  });
-                }
-              });
+              goto('redirectTo', `${pagePath}?params=${JSON.stringify(params)}`)
               break;
 
             default:
-              Taro.navigateTo({
-                url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`,
-                fail() {
-                  // 跳转失败的时候，使用 switchTab 重试
-                  Taro.switchTab({
-                    url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`
-                  });
-                }
-              });
+              goto('navigateTo', `${pagePath}?params=${JSON.stringify(params)}`)
               break;
           }
         },
@@ -164,19 +157,11 @@ app.h.render = (toJson, { comDefs, comInstance, ref, scenesOperate }) => {
 
 app.mybricks = app.mybricks || {};
 
+app.mybricks.status = injectConfig.status;
+
 app.mybricks.allComModules = 'TEMPLATE:COMMODULES';
 
-const mybricksConfig = 'TEMPLATE:CONFIGJSON';
-
-app.mybricks.status = 'TEMPLATE:STATUS';
-
 const init = () => new Promise((resolve) => {
-  app.mybricks.pageJsonMap = {}
-  if (Array.isArray(mybricksConfig?.pages)) {
-    mybricksConfig?.pages.forEach(page => {
-      app.mybricks.pageJsonMap[page.pagePath] = page.pageToJson
-    })
-  }
   resolve(true)
 })
 app.mybricks.ready = init();

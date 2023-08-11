@@ -4,7 +4,7 @@ import { View, Image } from '@tarojs/components'
 import cx from "classnames";
 import "./style.less";
 
-let tabBarJson = 'TEMPLATE:TABBARLIST';
+import tabBarJson from './mybricks/tabbar-config';
 
 export default () => {
 

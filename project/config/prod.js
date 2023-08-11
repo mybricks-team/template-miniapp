@@ -20,6 +20,29 @@ module.exports = {
       chain.optimization.set('chunkIds', 'named')
       // chain.optimization.set('mangleExports', false)
 
+      chain.merge({
+        externals:  [
+          function ({ context, request }, callback) {
+            if (/^\.\/mybricks\/page-config$/.test(request)) {
+              // 使用 request 路径，将一个 commonjs 模块外部化
+              return callback(null, 'commonjs ' + request);
+            }
+            
+            if (/^\.\/mybricks\/tabbar-config$/.test(request)) {
+              // 使用 request 路径，将一个 commonjs 模块外部化
+              return callback(null, 'commonjs ' + request);
+            }
+
+            if (/^\.\/mybricks\/root-config$/.test(request)) {
+              // 使用 request 路径，将一个 commonjs 模块外部化
+              return callback(null, 'commonjs ' + request);
+            }
+            // 继续下一步且不外部化引用
+            callback();
+          },
+        ]
+      })
+
       // chain.optimization.splitChunks({
       //   chunks: 'all',
       //   maxInitialRequests: Infinity,

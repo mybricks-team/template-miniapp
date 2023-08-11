@@ -4,6 +4,8 @@ import comInstance from "./comModules";
 import comDefs from "./comDefs";
 import { View } from "@tarojs/components";
 import { getGlobalData } from './../../utils'
+
+import injectConfig from './mybricks/page-config'
 import "./style.less";
 
 const app = getGlobalData();
@@ -87,9 +89,9 @@ export default () => {
     return null;
   }
 
-  const json = app.mybricks.pageJsonMap[router.path.slice(1).split('?')?.[0]];
+  // const json = app.mybricks.pageJsonMap[router.path.slice(1).split('?')?.[0]];
 
-  let jsx = app.h.render(json, {
+  let jsx = app.h.render(injectConfig.toJson, {
     comDefs: comDefs,
     comInstance: comInstance,
     // scenesOperate: {
