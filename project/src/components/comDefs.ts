@@ -803,15 +803,15 @@ import com0 from "./mybricks_taro__connector";import com1 from "./mybricks_taro
 					"runtime": com66
 				}
 			,
-          "mybricks.taro.activityDetail-1.0.3":{
+          "mybricks.taro.activityDetail-1.0.4":{
             "namespace": "mybricks.taro.activityDetail",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "runtime": com67
           }
         ,
 				"mybricks.taro.activityDetail":{
 					"namespace": "mybricks.taro.activityDetail",
-					"version": "1.0.3",
+					"version": "1.0.4",
 					"runtime": com67
 				}
 			,

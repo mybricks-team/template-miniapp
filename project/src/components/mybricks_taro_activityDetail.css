@@ -28,6 +28,7 @@
   height: 100%;
   min-height: 667px;
   overflow: hidden;
+  background: #f1f1f1;
 }
 .detail-c9948 .head-be1f9 {
   position: relative;
@@ -61,14 +62,8 @@
   color: #666666;
   font-size: 12px;
   line-height: 18px;
-  height: 18px;
   display: flex;
-  align-items: center;
-}
-.detail-c9948 .head-be1f9 .meta-b1f9d .datetime-ac889 .text-b8cfa {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
+  align-items: flex-start;
 }
 .detail-c9948 .head-be1f9 .meta-b1f9d .datetime-ac889::before {
   content: "";
@@ -76,6 +71,7 @@
   width: 12px;
   height: 12px;
   background: url("https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-06-20/1687233138823.2901fa9743bd2f04.png") no-repeat center center / contain;
+  margin-top: 3px;
   margin-right: 6px;
 }
 .detail-c9948 .head-be1f9 .meta-b1f9d .address-dd9cb {
@@ -83,14 +79,8 @@
   color: #666666;
   font-size: 12px;
   line-height: 18px;
-  height: 18px;
   display: flex;
-  align-items: center;
-}
-.detail-c9948 .head-be1f9 .meta-b1f9d .address-dd9cb .text-b8cfa {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
+  align-items: flex-start;
 }
 .detail-c9948 .head-be1f9 .meta-b1f9d .address-dd9cb::before {
   content: "";
@@ -98,6 +88,7 @@
   width: 12px;
   height: 12px;
   background: url("https://ali-ec.static.yximgs.com/udata/pkg/eshop/chrome-plugin-upload/2023-06-20/1687233164827.c7a82fc656dae1d7.png") no-repeat center center / contain;
+  margin-top: 3px;
   margin-right: 6px;
 }
 .content-a43eb {
@@ -187,6 +178,12 @@
   overflow-x: auto;
   height: 60px;
 }
+.userList-f4ce9::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+  color: transparent;
+}
 .userList-f4ce9 .item-cbc20 {
   flex-shrink: 0;
   display: flex;
@@ -246,5 +243,84 @@
   font-size: 14px;
   color: #383838;
   line-height: 20px;
+}
+.errorResult-a416d {
+  background: #ffffff;
+}
+.errorResult-a416d .text-b8cfa {
+  text-align: center;
+  margin-top: 240px;
+  font-size: 14px;
+  color: #383838;
+}
+.groupCard-df8b6 {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #ffffff;
+  border-radius: 2px;
+}
+.groupCard-df8b6 .head-be1f9 {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.groupCard-df8b6 .head-be1f9 .main-fd690 {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  margin-right: 12px;
+  overflow: hidden;
+}
+.groupCard-df8b6 .head-be1f9 .main-fd690 .logo-b9a43 {
+  display: block;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.groupCard-df8b6 .head-be1f9 .main-fd690 .meta-b1f9d {
+  flex: 1;
+  overflow: hidden;
+}
+.groupCard-df8b6 .head-be1f9 .main-fd690 .meta-b1f9d .title-d9af4 {
+  font-weight: 500;
+  color: #000000;
+  font-size: 14px;
+  line-height: 22px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.groupCard-df8b6 .head-be1f9 .main-fd690 .meta-b1f9d .condition-ac819 {
+  color: #666666;
+  font-size: 12px;
+  line-height: 18px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.groupCard-df8b6 .head-be1f9 .button-ec781 {
+  width: 58px;
+  height: 24px;
+  font-size: 12px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  color: #ffffff;
+  background: #fa6d23;
+}
+.groupCard-df8b6 .head-be1f9 .button-ec781::before {
+  margin-right: 6px;
+  content: "";
+  display: block;
+  width: 12px;
+  height: 12px;
+  background: url("https://admin.alialumni.com/mfs/StgSChIfCvcX7WMx3wxt2QydJbiJ5w1U-1689059996219.png") no-repeat center center / contain;
 }
 
