@@ -5,6 +5,7 @@ import './app/render-taro/index.css'
 import { call as callConnectorHttp } from "./app/utils/callConnectorHttp-ktaro";
 import { EventEmitter } from './app/utils/event'
 import './app/utils/pxToRpx';
+import { tabbarIns } from './app/utils/tabbar'
 import { getGlobalData } from './utils'
 import injectConfig from './mybricks/root-config'
 
@@ -139,13 +140,14 @@ app.h.render = (toJson, { comDefs, comInstance, ref, scenesOperate }) => {
         });
       },
       // event: eventEmitter,
+      tabbar: tabbarIns,
       rootScroll: {
         onScroll: cb => eventEmitter.addEventListner(`rootScroll_${toJson?.id}`, cb),
         emitScrollEvent: (payload) => eventEmitter.dispatch(`rootScroll_${toJson?.id}`, payload),
         scrollTo: ({ scrollTop = 0 }) => { },
         getBoundingClientRect: Promise.resolve()
       },
-      silent: true,
+      // silent: true,
     },
     events: [],
     comDefs: comDefs,
