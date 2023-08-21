@@ -134,26 +134,84 @@
   flex-direction: column;
   align-items: center;
   width: 54px;
-  height: 100%;
+  height: 40px;
   background: transparent;
+  padding: 0;
 }
 .signupBar-b4ab3 .share-af1f8::after {
   display: none;
 }
-.signupBar-b4ab3 .share-af1f8 .shareText-ddedd {
-  width: 54px;
-  font-size: 10px;
-  line-height: 12px;
-  color: #333333;
-  opacity: 0.6;
-}
-.signupBar-b4ab3 .shareButton-d2491 {
+.signupBar-b4ab3 .share-af1f8 .shareButton-d2491 {
   width: 24px;
   height: 24px;
   background: url("https://admin.alialumni.com/mfs/UE2uxcBhkdT8JJvDLLLXcCzAt3bkAalP-1689235341298.png") no-repeat center center / contain;
 }
+.signupBar-b4ab3 .share-af1f8 .shareText-ddedd {
+  margin-top: 4px;
+  font-size: 10px;
+  line-height: 12px;
+  height: 12px;
+  color: #333333;
+  opacity: 0.6;
+  width: 100%;
+}
+.signupBar-b4ab3 .contact-e5556 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 54px;
+  height: 40px;
+  margin-right: 12px;
+  position: relative;
+}
+.signupBar-b4ab3 .contact-e5556 .contactTips-e85b6 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 120px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fa6d25;
+  transform: translateY(-48px);
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 12px;
+}
+.signupBar-b4ab3 .contact-e5556 .contactTips-e85b6::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-top-color: #fa6d25;
+  transform: translateX(21px);
+}
+.signupBar-b4ab3 .contact-e5556 .avatar-d3894 {
+  display: block;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+.signupBar-b4ab3 .contact-e5556 .nickname-f3ca4 {
+  margin-top: 4px;
+  font-size: 10px;
+  line-height: 12px;
+  height: 12px;
+  color: #333333;
+  opacity: 0.6;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
+}
 .signupBar-b4ab3 .signupButton-e6610 {
-  margin-left: 24px;
+  margin-left: 18px;
   flex: 1;
   height: 40px;
   background: #fa6d25;

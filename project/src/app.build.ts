@@ -58,7 +58,7 @@ const genCallConnector = (status, comInstance) => (connector, params) => {
 }
 
 //
-app.h.render = (toJson, { comDefs, comInstance, ref, scenesOperate }) => {
+app.h.render = (toJson, { comDefs, comInstance, ref, scenesOperate, setShareConfig }) => {
   const _comModules = typeof app.mybricks?.allComModules === 'object' ? app.mybricks?.allComModules : comInstance
   return render(toJson, {
     env: {
@@ -147,6 +147,7 @@ app.h.render = (toJson, { comDefs, comInstance, ref, scenesOperate }) => {
         scrollTo: ({ scrollTop = 0 }) => { },
         getBoundingClientRect: Promise.resolve()
       },
+      setShareConfig,
       // silent: true,
     },
     events: [],

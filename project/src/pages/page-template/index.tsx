@@ -41,6 +41,16 @@ class polyfillIORefs {
   };
 }
 
+const shareConfig = {
+  message: null,
+  timeline: null
+}
+
+const setShareConfig = (type: 'app'| 'message', value) => {
+  shareConfig[type] = value
+}
+
+
 export default () => {
   const [ready, setIsReady] = useState(false);
   const ioRefs = useRef(new polyfillIORefs());
@@ -77,12 +87,16 @@ export default () => {
     ioRefs.current.ref?.inputs?.onPageScroll?.(e);
   });
 
-  useShareAppMessage((e) => {
-    return ioRefs.current.ref?.inputs?.onShareAppMessage?.(e);
+  useShareAppMessage(() => {
+    if (shareConfig.message) {
+      return shareConfig.message
+    }
   });
 
-  useShareTimeline((e) => {
-    return ioRefs.current.ref?.inputs?.onShareTimeline?.(e);
+  useShareTimeline(() => {
+    if (shareConfig.timeline) {
+      return shareConfig.timeline
+    }
   });
 
   if (!ready) {
@@ -125,6 +139,7 @@ export default () => {
         refs.inputs['open']?.({});
       }
     },
+    setShareConfig,
   });
 
   return jsx;

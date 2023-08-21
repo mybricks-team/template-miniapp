@@ -7,10 +7,11 @@
   height: 100vh;
   overflow: hidden;
 }
-.page-b6a09 .content-aa930 {
+.page-b6a09 .contentPlaceholder-e5cdc {
   flex: 1;
+}
+.page-b6a09 .contentScrollView-b062f {
   overflow: scroll;
-  height: 1px;
 }
 .fixedTop-ac522 {
   position: fixed;
