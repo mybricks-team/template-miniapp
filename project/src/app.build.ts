@@ -82,7 +82,7 @@ app.h.render = (toJson, { comDefs, comInstance, ref, scenesOperate, setShareConf
       canvas: {
         id: toJson?.id,
         open(sceneId, params, action) {
-          console.warn("open", arguments);
+          console.warn("canvas open", arguments);
 
           const { routeMap = {} } = injectConfig ?? {}
           const pagePath = routeMap?.[sceneId] ?? `/pages/${sceneId}/index`;
@@ -100,17 +100,30 @@ app.h.render = (toJson, { comDefs, comInstance, ref, scenesOperate, setShareConf
             });
           }
 
+          let query = {};
+          // 只有 params 是 {} 的时候才会进行转换
+          if (typeof params === 'object' && params !== null && !Array.isArray(params)) {
+            query = {
+              ...params,
+            };
+          }
+
+          let pagePathWithQuery = pagePath;
+          if (Object.keys(query).length > 0) {
+            pagePathWithQuery = `${pagePath}?${Object.keys(query).map(key => `${key}=${encodeURIComponent(query[key])}`).join('&')}`
+          }
+
           switch (action) {
             case "blank":
-              goto('navigateTo', `${pagePath}?params=${JSON.stringify(params)}`)
+              goto('navigateTo', pagePathWithQuery)
               break;
 
             case "redirect":
-              goto('redirectTo', `${pagePath}?params=${JSON.stringify(params)}`)
+              goto('redirectTo', pagePathWithQuery)
               break;
 
             default:
-              goto('navigateTo', `${pagePath}?params=${JSON.stringify(params)}`)
+              goto('navigateTo', pagePathWithQuery)
               break;
           }
         },

@@ -129,11 +129,13 @@ export default () => {
       /** ref注册后，主动触发输入 */
       // TODO
       try {
-        const value = Taro.getCurrentInstance()?.router?.params;
+        const value = Taro.getCurrentInstance()?.router?.params || {};
         console.warn("open", value);
 
-        let params = value.params || "{}";
-        refs.inputs['open']?.(JSON.parse(decodeURIComponent(params)) || {});
+        refs.inputs['open']?.(value);
+
+        // let params = value.params || "{}";
+        // refs.inputs['open']?.(JSON.parse(decodeURIComponent(params)) || {});
       } catch (e) {
         console.error("open", e);
         refs.inputs['open']?.({});
