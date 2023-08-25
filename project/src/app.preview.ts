@@ -84,43 +84,48 @@ app.h.render = (toJson, { comDefs, comModules, ref, scenesOperate }) => {
       canvas: {
         id: toJson?.id,
         open(sceneId, params, action) {
-          console.warn("open", arguments);
+          console.warn("canvas open", arguments);
+
+          const { routeMap = {} } = injectConfig ?? {}
+          const pagePath = routeMap?.[sceneId] ?? `/pages/${sceneId}/index`;
+
+          const goto = (type: 'navigateTo' | 'redirectTo', url) => {
+            const goRoute = type === 'navigateTo' ? Taro.navigateTo : Taro.redirectTo
+            goRoute({
+              url,
+              fail() {
+                // 跳转失败的时候，使用 switchTab 重试
+                Taro.switchTab({
+                  url
+                });
+              }
+            });
+          }
+
+          let query = {};
+          // 只有 params 是 {} 的时候才会进行转换
+          if (typeof params === 'object' && params !== null && !Array.isArray(params)) {
+            query = {
+              ...params,
+            };
+          }
+
+          let pagePathWithQuery = pagePath;
+          if (Object.keys(query).length > 0) {
+            pagePathWithQuery = `${pagePath}?${Object.keys(query).map(key => `${key}=${encodeURIComponent(query[key])}`).join('&')}`
+          }
 
           switch (action) {
             case "blank":
-              Taro.navigateTo({
-                url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`,
-                fail() {
-                  // 跳转失败的时候，使用 switchTab 重试
-                  Taro.switchTab({
-                    url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`
-                  });
-                }
-              });
+              goto('navigateTo', pagePathWithQuery)
               break;
 
             case "redirect":
-              Taro.redirectTo({
-                url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`,
-                fail() {
-                  // 跳转失败的时候，使用 switchTab 重试
-                  Taro.switchTab({
-                    url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`
-                  });
-                }
-              });
+              goto('redirectTo', pagePathWithQuery)
               break;
 
             default:
-              Taro.navigateTo({
-                url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`,
-                fail() {
-                  // 跳转失败的时候，使用 switchTab 重试
-                  Taro.switchTab({
-                    url: `/pages/${sceneId}/index?params=${JSON.stringify(params)}`
-                  });
-                }
-              });
+              goto('navigateTo', pagePathWithQuery)
               break;
           }
         },
