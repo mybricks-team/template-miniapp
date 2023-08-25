@@ -57,6 +57,17 @@ const genCallConnector = (status, comInstance) => (connector, params) => {
   }
 }
 
+const getPagePathFromSceneIdAndParams = (sceneId, searchParams) => {
+  const { routeMap = {} } = injectConfig ?? {}
+  const pagePath = routeMap?.[sceneId] ?? `/pages/${sceneId}/index`;
+
+  let pagePathWithQuery = pagePath;
+  if (Object.prototype.toString.call(searchParams) === '[object Object]' && Object.keys(searchParams).length > 0) {
+    pagePathWithQuery = `${pagePath}?${Object.keys(searchParams).map(key => `${key}=${encodeURIComponent(searchParams[key])}`).join('&')}`
+  }
+  return pagePathWithQuery
+}
+
 //
 app.h.render = (toJson, { comDefs, comInstance, ref, scenesOperate, setShareConfig }) => {
   const _comModules = typeof app.mybricks?.allComModules === 'object' ? app.mybricks?.allComModules : comInstance
@@ -84,9 +95,6 @@ app.h.render = (toJson, { comDefs, comInstance, ref, scenesOperate, setShareConf
         open(sceneId, params, action) {
           console.warn("canvas open", arguments);
 
-          const { routeMap = {} } = injectConfig ?? {}
-          const pagePath = routeMap?.[sceneId] ?? `/pages/${sceneId}/index`;
-
           const goto = (type: 'navigateTo' | 'redirectTo', url) => {
             const goRoute = type === 'navigateTo' ? Taro.navigateTo : Taro.redirectTo
             goRoute({
@@ -100,18 +108,7 @@ app.h.render = (toJson, { comDefs, comInstance, ref, scenesOperate, setShareConf
             });
           }
 
-          let query = {};
-          // 只有 params 是 {} 的时候才会进行转换
-          if (typeof params === 'object' && params !== null && !Array.isArray(params)) {
-            query = {
-              ...params,
-            };
-          }
-
-          let pagePathWithQuery = pagePath;
-          if (Object.keys(query).length > 0) {
-            pagePathWithQuery = `${pagePath}?${Object.keys(query).map(key => `${key}=${encodeURIComponent(query[key])}`).join('&')}`
-          }
+          const pagePathWithQuery = getPagePathFromSceneIdAndParams(sceneId, params)
 
           switch (action) {
             case "blank":
@@ -201,6 +198,15 @@ class App extends Component<any> {
 
   componentDidHide(...args) {
     console.log("componentDidHide", ...args);
+  }
+
+  onPageNotFound({ path, query }) {
+    // 由于自动分包的原因，有可能出现路径变化的情况，当页面被分享出去之后，页面找不到了需要根据sceneId来确定当前页面路由在哪
+    if (path?.split) {
+      const sceneId = path.split('/').reverse()[1];
+      const pagePathWithQuery = getPagePathFromSceneIdAndParams(sceneId, query);
+      Taro.redirectTo({ url: pagePathWithQuery })
+    }
   }
 
   // this.props.children 是将要会渲染的页面
