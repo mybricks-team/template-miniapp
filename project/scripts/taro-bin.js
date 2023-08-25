@@ -12,7 +12,7 @@ function findRootDir(currentDir, level = 3) {
     return findRootDir(parentDir) // 递归往上查找
   }
 
-  const cliPath = path.resolve(nodeModulesPath, './@tarojs')
+  const cliPath = path.resolve(nodeModulesPath, './@tarojs/cli/bin')
   if (!moduleExists(cliPath)) {
     const parentDir = path.join(currentDir, '..')
     return findRootDir(parentDir) // 递归往上查找
