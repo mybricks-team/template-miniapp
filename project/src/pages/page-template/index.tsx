@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo, useRef } from "react";
 import Taro, { useDidShow, useDidHide, useRouter, usePullIntercept, usePullDownRefresh, useReachBottom, usePageScroll, useShareAppMessage, useShareTimeline } from "@tarojs/taro";
 import comInstance from "./comModules";
 import comDefs from "./comDefs";
-import { View } from "@tarojs/components";
+// import { View } from "@tarojs/components";
 import { getGlobalData } from './../../utils'
 
 import injectConfig from './mybricks/page-config'
@@ -52,16 +52,16 @@ const setShareConfig = (type: 'app'| 'message', value) => {
 
 
 export default () => {
-  const [ready, setIsReady] = useState(false);
+  // const [ready, setIsReady] = useState(false);
   const ioRefs = useRef(new polyfillIORefs());
 
-  const router = useRouter();
+  // const router = useRouter();
 
-  useEffect(() => {
-    app.mybricks.ready.then(() => {
-      setIsReady(true);
-    });
-  }, []);
+  // useEffect(() => {
+  //   app.mybricks.ready.then(() => {
+  //     setIsReady(true);
+  //   });
+  // }, []);
 
   useDidShow(() => {
     ioRefs.current.ref?.inputs?.onShow?.();
@@ -71,21 +71,21 @@ export default () => {
     ioRefs.current.ref?.inputs?.onHide?.();
   });
 
-  usePullDownRefresh(() => {
-    ioRefs.current.ref?.inputs?.onPullDownRefresh?.();
-  });
+  // usePullDownRefresh(() => {
+  //   ioRefs.current.ref?.inputs?.onPullDownRefresh?.();
+  // });
 
-  usePullIntercept(() => {
-    ioRefs.current.ref?.inputs?.onPullIntercept?.();
-  });
+  // usePullIntercept(() => {
+  //   ioRefs.current.ref?.inputs?.onPullIntercept?.();
+  // });
 
-  useReachBottom(() => {
-    ioRefs.current.ref?.inputs?.onReachBottom?.();
-  });
+  // useReachBottom(() => {
+  //   ioRefs.current.ref?.inputs?.onReachBottom?.();
+  // });
 
-  usePageScroll((e) => {
-    ioRefs.current.ref?.inputs?.onPageScroll?.(e);
-  });
+  // usePageScroll((e) => {
+  //   ioRefs.current.ref?.inputs?.onPageScroll?.(e);
+  // });
 
   useShareAppMessage(() => {
     if (shareConfig.message) {
@@ -99,9 +99,9 @@ export default () => {
     }
   });
 
-  if (!ready) {
-    return null;
-  }
+  // if (!ready) {
+  //   return null;
+  // }
 
   // const json = app.mybricks.pageJsonMap[router.path.slice(1).split('?')?.[0]];
 
