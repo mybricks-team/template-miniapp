@@ -10,36 +10,36 @@ import "./style.less";
 
 const app = getGlobalData();
 
-class polyfillIORefs {
-  ref = {
-    inputs: {},
-    outputs: {},
-  };
+// class polyfillIORefs {
+//   ref = {
+//     inputs: {},
+//     outputs: {},
+//   };
 
-  constructor() {
-    this.ref.inputs.onPageShow = () => {
-      this.callbacks.push(() => this.ref.inputs?.onPageShow?.());
-    };
-  }
+//   constructor() {
+//     this.ref.inputs.onPageShow = () => {
+//       this.callbacks.push(() => this.ref.inputs?.onPageShow?.());
+//     };
+//   }
 
-  callbacks = [];
+//   callbacks = [];
 
-  setRef = (ref) => {
-    this.ref = ref;
-  };
+//   setRef = (ref) => {
+//     this.ref = ref;
+//   };
 
-  call = () => {
-    if (Array.isArray(this.callbacks) && this.callbacks.length) {
-      this.callbacks.forEach((func) => {
-        func?.();
-      });
-    }
-  };
+//   call = () => {
+//     if (Array.isArray(this.callbacks) && this.callbacks.length) {
+//       this.callbacks.forEach((func) => {
+//         func?.();
+//       });
+//     }
+//   };
 
-  destroy = () => {
-    this.callbacks = [];
-  };
-}
+//   destroy = () => {
+//     this.callbacks = [];
+//   };
+// }
 
 const shareConfig = {
   message: null,
@@ -53,7 +53,8 @@ const setShareConfig = (type: 'app'| 'message', value) => {
 
 export default () => {
   // const [ready, setIsReady] = useState(false);
-  const ioRefs = useRef(new polyfillIORefs());
+  // const ioRefs = useRef(new polyfillIORefs());
+  const ioRefs = useRef({ ref: {} })
 
   // const router = useRouter();
 
@@ -124,8 +125,9 @@ export default () => {
     //   }
     // },
     ref: (refs) => {
-      ioRefs.current.setRef(refs);
-      ioRefs.current.call();
+      ioRefs.current.ref = refs
+      // ioRefs.current.setRef(refs);
+      // ioRefs.current.call();
       /** ref注册后，主动触发输入 */
       // TODO
       try {
