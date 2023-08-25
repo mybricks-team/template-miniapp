@@ -7,6 +7,7 @@ import { call as callConnectorHttp } from "./app/utils/callConnectorHttp-ktaro";
 import './app/utils/pxToRpx';
 import { Interpreter } from "mybricks-utils-mp-render/lib";
 import { getGlobalData } from './utils'
+import injectConfig from './mybricks/root-config'
 
 import "./app.less";
 
