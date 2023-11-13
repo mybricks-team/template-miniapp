@@ -1,3 +1,5 @@
+import './registExternals';
+
 import Taro from "@tarojs/taro";
 import { Component } from "react";
 import { render } from "./app/render-taro"

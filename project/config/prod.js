@@ -15,6 +15,7 @@ module.exports = {
       // chain.experiments.set('outputModule', true)
 
       chain.optimization.minimize(true)
+      // chain.optimization.minimize(false)
 
       chain.optimization.set('moduleIds', 'named')
       chain.optimization.set('chunkIds', 'named')
@@ -36,6 +37,12 @@ module.exports = {
             if (/^\.\/mybricks\/root-config$/.test(request)) {
               // 使用 request 路径，将一个 commonjs 模块外部化
               return callback(null, 'commonjs ' + request);
+            }
+
+            // ../../components/comDefs
+            if (/^\.\/\.\.\/\.\.\/components\/comDefs$/.test(request)) {
+              // 使用 request 路径，将一个 commonjs 模块外部化
+              return callback(null,'commonjs ' + request);
             }
             // 继续下一步且不外部化引用
             callback();
