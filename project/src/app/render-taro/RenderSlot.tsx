@@ -237,12 +237,22 @@ const RenderCom = observer(function ({
       otherStyle.zIndex = 1000;
     }
 
-    // [TODO] --- 2023.7.11 小程序不支持createPortal, 所以需要把displate 设置为block
-    if (style.position === 'fixed' && style.display === 'none' && def.namespace === 'mybricks.taro.popup') {
+    // // [TODO] --- 2023.7.11 小程序不支持createPortal, 所以需要把displate 设置为block
+    // if (style.position === 'fixed' && style.display === 'none' && def.namespace === 'mybricks.taro.popup') {
+    //   otherStyle = { display: 'block', position: 'relative' }
+    //   delete sizeStyle.width;
+    //   delete sizeStyle.height;
+    // }
+  }
+
+  // [TODO] --- 2023.12.11 小程序不支持createPortal, 所以需要把displate 设置为block
+  const createPortal = (child) => {
+    if (style.display === 'none') {
       otherStyle = { display: 'block', position: 'relative' }
       delete sizeStyle.width;
       delete sizeStyle.height;
     }
+    return child
   }
 
   // --- [TODO] 2023.2.21 兼容小程序
@@ -281,7 +291,7 @@ const RenderCom = observer(function ({
     _outputs: _myOutputs,
     _notifyBindings: _myNotifyBindings,
     slots: slotsProxy,
-    createPortal: (e) => {},
+    createPortal,
     parentSlot,
     __rxui_child__,
     onError,
