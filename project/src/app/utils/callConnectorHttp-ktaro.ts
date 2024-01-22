@@ -89,12 +89,27 @@ const getFetch = (connector) => {
       newParams.method = newParams.method || method;
       /** 局部入参处理 */
       const options = connector.input(newParams);
-      /** url 里支持模板字符串 */
-      options.url = (options.url || url).replace(/{(\w+)}/g, (match, key) => {
-        const param = params[key] || '';
-        Reflect.deleteProperty(options.params || {}, key);
-        return param;
-      });
+
+      // 小程序需要兼容 headers => header
+      if (options.headers) {
+        options.header = options.headers;
+        Reflect.deleteProperty(options, 'headers');
+      }
+
+      // 由于小程序不支持 params，需要将 params 放到 url 上
+      if (options.params) {
+        let search = Object.keys(options.params).map(key => `${key}=${options.params[key]}`).join('&');
+        options.url = (options.url || url).indexOf("?") === -1 ? `${options.url}?${search}` : `${options.url}&${search}`;
+        Reflect.deleteProperty(options, 'params');
+      }
+
+      // /** url 里支持模板字符串 */
+      // options.url = (options.url || url).replace(/{(\w+)}/g, (match, key) => {
+      //   const param = params[key] || '';
+      //   Reflect.deleteProperty(options.params || {}, key);
+      //   return param;
+      // });
+      
       options.method = options.method || method;
 
       config
