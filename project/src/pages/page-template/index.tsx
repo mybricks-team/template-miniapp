@@ -1,11 +1,21 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
-import Taro, { useDidShow, useDidHide, useRouter, usePullIntercept, usePullDownRefresh, useReachBottom, usePageScroll, useShareAppMessage, useShareTimeline } from "@tarojs/taro";
+import Taro, {
+  useDidShow,
+  useDidHide,
+  useRouter,
+  usePullIntercept,
+  usePullDownRefresh,
+  useReachBottom,
+  usePageScroll,
+  useShareAppMessage,
+  useShareTimeline,
+} from "@tarojs/taro";
 import comInstance from "./comModules";
 import comDefs from "./comDefs";
 // import { View } from "@tarojs/components";
-import { getGlobalData } from './../../utils'
+import { getGlobalData } from "./../../utils";
 
-import injectConfig from './mybricks/page-config'
+import injectConfig from "./mybricks/page-config";
 import "./style.less";
 
 const app = getGlobalData();
@@ -43,18 +53,20 @@ const app = getGlobalData();
 
 const shareConfig = {
   message: null,
-  timeline: null
-}
+  timeline: null,
+};
 
-const setShareConfig = (type: 'app'| 'message', value) => {
-  shareConfig[type] = value
-}
-
+const setShareConfig = (type: "app" | "message", value) => {
+  shareConfig[type] = value;
+};
 
 export default () => {
+  const [isReady, setIsReady] = useState(false);
+  const [router] = useState(Taro.getCurrentInstance().router);
+
   // const [ready, setIsReady] = useState(false);
   // const ioRefs = useRef(new polyfillIORefs());
-  const ioRefs = useRef({ ref: {} })
+  const ioRefs = useRef({ ref: {} });
 
   // const router = useRouter();
 
@@ -64,12 +76,31 @@ export default () => {
   //   });
   // }, []);
 
+  /**
+   * 页面「重新」显示
+   * 避免在页面初始化打开时，同时触发 页面打开 和 页面显示 两个生命周期
+   * 并且在回调中，额外补充页面参数
+   */
   useDidShow(() => {
-    ioRefs.current.ref?.inputs?.onShow?.();
+    if (!isReady) {
+      return;
+    }
+
+    Taro.eventCenter.trigger("pageDidShow", {
+      path: router.path || "",
+      query: router.params || {},
+    });
+
+    // ioRefs.current.ref?.inputs?.onShow?.();
   });
 
   useDidHide(() => {
-    ioRefs.current.ref?.inputs?.onHide?.();
+    Taro.eventCenter.trigger("pageDidHide", {
+      path: router.path || "",
+      query: router.params || {},
+    });
+
+    // ioRefs.current.ref?.inputs?.onHide?.();
   });
 
   // usePullDownRefresh(() => {
@@ -90,13 +121,13 @@ export default () => {
 
   useShareAppMessage(() => {
     if (shareConfig.message) {
-      return shareConfig.message
+      return shareConfig.message;
     }
   });
 
   useShareTimeline(() => {
     if (shareConfig.timeline) {
-      return shareConfig.timeline
+      return shareConfig.timeline;
     }
   });
 
@@ -125,7 +156,7 @@ export default () => {
     //   }
     // },
     ref: (refs) => {
-      ioRefs.current.ref = refs
+      ioRefs.current.ref = refs;
       // ioRefs.current.setRef(refs);
       // ioRefs.current.call();
       /** ref注册后，主动触发输入 */
@@ -137,20 +168,25 @@ export default () => {
         if (value.params) {
           try {
             let params = decodeURIComponent(value.params);
-            let rule = typeof params === 'string' && params.indexOf('{') === 0 && params.indexOf('}') === params.length - 1;
+            let rule =
+              typeof params === "string" &&
+              params.indexOf("{") === 0 &&
+              params.indexOf("}") === params.length - 1;
             if (rule) {
               value = JSON.parse(params);
             } else {
             }
-          } catch (e) { }
+          } catch (e) {}
         }
 
         console.warn("open after", value);
-        refs.inputs['open']?.(value);
+        refs.inputs["open"]?.(value);
       } catch (e) {
         console.error("open", e);
-        refs.inputs['open']?.({});
+        refs.inputs["open"]?.({});
       }
+
+      setIsReady(true);
     },
     setShareConfig,
   });
