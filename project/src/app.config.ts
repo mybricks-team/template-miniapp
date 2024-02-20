@@ -1,10 +1,1 @@
-
-export default {
-  pages: ["pages/page-template/index"],
-  window: {
-    backgroundTextStyle: "light",
-    navigationBarBackgroundColor: "#fff",
-    navigationBarTitleText: "WeChat",
-    navigationBarTextStyle: "black",
-  }
-};
+export default {"entryPagePath":"pages/index/index","pages":["pages/index/index","pages/404/index"],"tabBar":{"custom":true,"list":[{"pagePath":"pages/index/index","text":"首页"},{"pagePath":"pages/404/index","text":"需要删除"}]},"networkTimeout":{"request":10000,"downloadFile":10000}}

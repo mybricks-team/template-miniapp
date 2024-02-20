@@ -1,0 +1,162 @@
+{
+  "appConfig": {
+    "entryPagePath": "pages/index/index",
+    "pages": [
+      "pages/index/index",
+      "pages/404/index"
+    ],
+    "tabBar": {
+      "custom": true,
+      "list": [
+        {
+          "pagePath": "pages/index/index",
+          "text": "首页"
+        },
+        {
+          "pagePath": "pages/404/index",
+          "text": "需要删除"
+        }
+      ]
+    },
+    "networkTimeout": {
+      "request": 10000,
+      "downloadFile": 10000
+    }
+  },
+  "customTabBar": {},
+  "pages": [
+    {
+      "json": {
+        "-v": "1.0.9",
+        "id": "u_2G628",
+        "title": "主场景",
+        "deps": [],
+        "coms": {},
+        "slot": {
+          "id": "u_2G628",
+          "title": "主场景",
+          "comAry": [],
+          "style": {
+            "zoom": 1,
+            "width": 375,
+            "height": 667,
+            "layout": "flex-column",
+            "justifyContent": "flex-start",
+            "alignItems": "flex-start"
+          }
+        },
+        "comsAutoRun": {},
+        "_inputs": [],
+        "_outputs": [],
+        "inputs": [
+          {
+            "id": "onPageShow",
+            "title": "页面显示",
+            "type": "normal",
+            "schema": {
+              "type": "any"
+            }
+          },
+          {
+            "id": "onPageHide",
+            "title": "页面隐藏",
+            "type": "normal",
+            "schema": {
+              "type": "any"
+            }
+          }
+        ],
+        "outputs": [
+          {
+            "id": "click",
+            "title": "点击",
+            "type": "event",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "cons": {},
+        "pinRels": {},
+        "pinProxies": {},
+        "pinValueProxies": {},
+        "plugins": {},
+        "configuration": {
+          "serviceDomain": "https://admin.alialumni.com"
+        }
+      },
+      "pageConfig": {
+        "pagePath": "pages/index/index"
+      },
+      "pagePath": "pages/index/index"
+    },
+    {
+      "json": {
+        "-v": "1.0.9",
+        "id": "u_2G628",
+        "title": "主场景",
+        "deps": [],
+        "coms": {},
+        "slot": {
+          "id": "u_2G628",
+          "title": "主场景",
+          "comAry": [],
+          "style": {
+            "zoom": 1,
+            "width": 375,
+            "height": 667,
+            "layout": "flex-column",
+            "justifyContent": "flex-start",
+            "alignItems": "flex-start"
+          }
+        },
+        "comsAutoRun": {},
+        "_inputs": [],
+        "_outputs": [],
+        "inputs": [
+          {
+            "id": "onPageShow",
+            "title": "页面显示",
+            "type": "normal",
+            "schema": {
+              "type": "any"
+            }
+          },
+          {
+            "id": "onPageHide",
+            "title": "页面隐藏",
+            "type": "normal",
+            "schema": {
+              "type": "any"
+            }
+          }
+        ],
+        "outputs": [
+          {
+            "id": "click",
+            "title": "点击",
+            "type": "event",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "cons": {},
+        "pinRels": {},
+        "pinProxies": {},
+        "pinValueProxies": {},
+        "plugins": {},
+        "configuration": {
+          "serviceDomain": "https://admin.alialumni.com"
+        }
+      },
+      "pageConfig": {
+        "pagePath": "pages/404/index"
+      },
+      "pagePath": "pages/404/index"
+    }
+  ],
+  "_appConfig": {
+    "callServiceHost": "https://admin.alialumni.com"
+  }
+}

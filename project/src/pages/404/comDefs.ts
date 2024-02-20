@@ -1,0 +1,1 @@
+import comDefs from './../../components/comDefs';export default comDefs;
