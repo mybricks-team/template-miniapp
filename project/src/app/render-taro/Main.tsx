@@ -13,12 +13,8 @@ import React, {
   useLayoutEffect
 } from 'react';
 
-import coreLib from '@mybricks/comlib-core';
-
 import executor from './executor';
 import RenderSlot from './RenderSlot';
-import {compareVersion} from './utils';
-import {setLoggerSilent} from './logger';
 import ErrorBoundary from './ErrorBoundary';
 import {observable as defaultObservable} from './observable';
 
@@ -33,119 +29,40 @@ const regAry = (comAray, comDefs) => {
   })
 }
 
-export default function Main({json, opts}: { json, opts: { env, events, comDefs, comInstance, observable, ref } }) {
+export default function Main({json, opts, _context}: { json, opts: { env, events, comDefs, comInstance, observable, ref }, _context: any}) {
   
   const comInstance = useMemo(() => {
     return opts.comInstance || {}
   }, []);
   
-  const comDefs = useMemo(() => {
-    let comDefs: null | {[key: string]: any} = null;
-
-    /** 外部传入组件信息 */
-    if (opts.comDefs) {
-      comDefs = {};
-      Object.assign(comDefs, opts.comDefs);
-    }
-
-    /** 默认从window上查找组件库 */
-    let comLibs = [...(window["__comlibs_edit_"] || []), ...(window["__comlibs_rt_"] || [])];
-
-    if (!comDefs) {
-      if (!comLibs.length) {
-        /** 没有外部传入切window上没有组件库 */
-        throw new Error(`组件库为空，请检查是否通过<script src="组件库地址"></script>加载或通过comDefs传入了组件库运行时.`)
-      } else {
-        comDefs = {}
-      }
-    }
-
-    /** 插入核心组件库(fn,var等) */
-    comLibs.push(coreLib)
-    comLibs.forEach(lib => {
-      const comAray = lib.comAray;
-      if (comAray && Array.isArray(comAray)) {
-        regAry(comAray, comDefs);
-      }
-    })
-
-    return comDefs;
-  }, [])
-
-  const getComDef = useCallback((def) => {
-    const rtn = comDefs[def.namespace + '-' + def.version]
-    if (!rtn) {
-      const ary = []
-      for (let ns in comDefs) {
-        if (ns.startsWith(def.namespace + '-')) {
-          ary.push(comDefs[ns])
-        }
-      }
-
-      if (ary && ary.length > 0) {
-        ary.sort((a, b) => {
-          return compareVersion(a.version, b.version)
-        })
-
-        const rtn0 = ary[0]
-        console.warn(`【Mybricks】组件${def.namespace + '@' + def.version}未找到，使用${rtn0.namespace}@${rtn0.version}代替.`)
-
-        return rtn0
-      } else {
-        console.log(comDefs)
-
-        throw new Error(`组件${def.namespace + '@' + def.version}未找到，请确定是否存在该组件以及对应的版本号.`)
-      }
-    }
-    return rtn
-  }, [])
-
-  //环境变量，此处可以定义连接器、多语言等实现
-  const env = useMemo(() => {
-    if (!!opts?.env?.silent) {
-      setLoggerSilent();
-    }
-    return Object.assign({
-      runtime: {},
-      i18n(text: any) {
-        return text
-      },
-      canvasElement: document.body
-    }, opts.env)
-  }, [])
-
-  const {slot} = json;
-
-  // onError
-  const onError = useMemo(() => {
-    return (e) => {
-      console.error(e);
-    };
-  }, []);
-  // logger
-  const logger = useMemo(() => {
+  const { env, onError, logger, slot, getComDef } = useMemo(() => {
     return {
-      ...console,
-      error: (e) => {
-        console.error(e);
-      },
-    };
-  }, []);
+      env: opts.env,
+      onError: _context.onError,
+      logger: _context.logger,
+      getComDef: (def: any) => _context.getComDef(def),
+      slot: json.slot,
+      _context
+    }
+  }, [])
 
   //根据script生成context对象
-  const [context, refs] = useMemo(() => {
+  const [context, refs, activeTriggerInput] = useMemo(() => {
     try {
       let refs
+      let activeTriggerInput = true
       const context = executor({
         json,
         comInstance,
         getComDef,
         events: opts.events,
         env,
-        ref(_refs) {
+        ref(_refs: any) {
           refs = _refs
-          if (opts.ref) {
+          if (typeof opts.ref === 'function') {
             opts.ref(_refs)
+            // 如果被代理，那么inputs由外部处理
+            activeTriggerInput = false
           }
         },
         onError,
@@ -155,7 +72,7 @@ export default function Main({json, opts}: { json, opts: { env, events, comDefs,
         observable: opts.observable || defaultObservable
       })
 
-      return [context, refs]
+      return [context, refs, activeTriggerInput]
     } catch (ex: any) {
       console.error(ex);
       throw new Error(`导出的JSON.script执行异常.`)
@@ -163,7 +80,27 @@ export default function Main({json, opts}: { json, opts: { env, events, comDefs,
   }, [])
 
   useLayoutEffect(() => {
-    refs.run()
+    if (!opts.disableAutoRun) {
+      if (activeTriggerInput) {
+        const { inputs } = refs
+        const jsonInputs = json.inputs
+        if (inputs && Array.isArray(jsonInputs)) {
+          jsonInputs.forEach((input) => {
+            const { id, mockData } = input
+            let value = void 0
+            // if (options.debug && typeof mockData !== 'undefined') {
+            //   try {
+            //     value = JSON.parse(decodeURIComponent(mockData))
+            //   } catch {
+            //     value = mockData
+            //   }
+            // }
+            inputs[id](value)
+          })
+        }
+      }
+      refs.run()
+    }
   }, [])
 
   return (
@@ -172,7 +109,7 @@ export default function Main({json, opts}: { json, opts: { env, events, comDefs,
         env={env}
         slot={slot}
         getComDef={getComDef}
-        getContext={context.get}
+        context={context}
         __rxui_child__={!opts.observable}
         onError={onError}
         logger={logger}

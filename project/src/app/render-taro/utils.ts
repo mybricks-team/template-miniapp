@@ -78,3 +78,17 @@ export function uuid(len=5, radix=8) {
 
   return uuid.join('');
 }
+
+export function easyClone(val: any) {
+  if (val && typeof val === 'object') {
+    try {
+      if (val instanceof FormData) {
+        return val
+      }
+      return JSON.parse(JSON.stringify(val))
+    } catch (ex) {
+      return val
+    }
+  }
+  return val
+}

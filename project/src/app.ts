@@ -94,7 +94,7 @@ app.h.render = (toJson, { comDefs, comInstance, ref, scenesOperate, setShareConf
       },
       canvas: {
         id: toJson?.id,
-        open(sceneId, params, action) {
+        _open(sceneId, params, action) {
           console.warn("canvas open", arguments);
 
           const goto = (type: 'navigateTo' | 'redirectTo', url) => {

@@ -29,8 +29,9 @@ export default function RenderSlot({
   wrapper,
   template,
   env,
+  _env,
   getComDef,
-  getContext,
+  context,
   __rxui_child__,
   onError,
   logger,
@@ -44,12 +45,9 @@ export default function RenderSlot({
     const comDef = getComDef(def);
 
     if (comDef) {
-      const props = getContext(id, scope, {
-        inputs,
-        outputs,
-        _inputs,
-        _outputs,
-      });
+      const props = context.get({comId: id, scope, _ioProxy: {
+        inputs, outputs, _inputs, _outputs
+      }})
 
       const comKey = (scope ? scope.id : "") + idx; //考虑到scope变化的情况，驱动组件强制刷新
       itemAry.push({
@@ -59,7 +57,7 @@ export default function RenderSlot({
             key={comKey}
             com={com}
             getComDef={getComDef}
-            getContext={getContext}
+            context={context}
             scope={scope}
             props={props}
             env={env}
@@ -111,7 +109,7 @@ const RenderCom = observer(function ({
   template,
   env,
   getComDef,
-  getContext,
+  context,
   __rxui_child__,
   onError,
   logger,
@@ -132,7 +130,24 @@ const RenderCom = observer(function ({
 
   const slotsProxy = new Proxy(slots, {
     get(target, slotId: string) {
-      const props = getContext(id, slotId);
+      // const props = context.get({comId: id, slotId, scope: null})
+
+      let currentScope;
+
+      // const slot = slots[slotId]
+
+      // if (slot?.type === 'scope') {
+        if (scope) {
+          currentScope = {
+            id: scope.id + '-' + scope.frameId,
+            frameId: slotId,
+            parentComId: id,
+            parent: scope
+          }
+        }
+      // }
+
+      const props = context.get({comId: id, slotId, scope: currentScope})
 
       const errorStringPrefix = `组件(namespace=${def.namespace}）的插槽(id=${slotId})`;
 
@@ -153,12 +168,22 @@ const RenderCom = observer(function ({
           style;
         }) {
           const slot = slots[slotId];
+          const paramsScope = params?.scope
+          if (paramsScope) {
+            currentScope = {
+              id: paramsScope.id + '-' + paramsScope.frameId,
+              frameId: slotId,
+              parentComId: id,
+              parent: paramsScope
+            }
+          }
           if (slot) {
             return (
               <SlotRender
                 slotId={slotId}
                 slot={slot}
                 props={props}
+                currentScope={currentScope}
                 params={params}
                 style={style}
                 onError={onError}
@@ -166,7 +191,7 @@ const RenderCom = observer(function ({
                 env={env}
                 scope={scope}
                 getComDef={getComDef}
-                getContext={getContext}
+                context={context}
                 __rxui_child__={__rxui_child__}
               />
             );
@@ -362,7 +387,7 @@ const SlotRender = memo(
     env,
     style,
     getComDef,
-    getContext,
+    context,
     onError,
     logger,
     __rxui_child__,
@@ -450,7 +475,7 @@ const SlotRender = memo(
         wrapper={wrapFn}
         template={params?.itemWrap}
         getComDef={getComDef}
-        getContext={getContext}
+        context={context}
         inputs={params?.inputs}
         outputs={params?.outputs}
         _inputs={params?._inputs}
