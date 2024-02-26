@@ -21,6 +21,7 @@ const css = {
 export default function RenderSlot({
   scope,
   slot,
+  style: propsStyle = {},
   params,
   inputs,
   outputs,
@@ -61,6 +62,7 @@ export default function RenderSlot({
             scope={scope}
             props={props}
             env={env}
+            _env={_env}
             template={template}
             onError={onError}
             logger={logger}
@@ -94,7 +96,7 @@ export default function RenderSlot({
     return (
       <view
         className={calSlotClasses(slotStyle)}
-        style={calSlotStyles(slotStyle, !!paramsStyle)}
+        style={{ ...calSlotStyles(slotStyle, !!paramsStyle), ...propsStyle }}
       >
         {itemAry.map((item) => item.jsx)}
       </view>
@@ -108,6 +110,7 @@ const RenderCom = observer(function ({
   scope,
   template,
   env,
+  _env,
   getComDef,
   context,
   __rxui_child__,
@@ -189,6 +192,7 @@ const RenderCom = observer(function ({
                 onError={onError}
                 logger={logger}
                 env={env}
+                _env={_env}
                 scope={scope}
                 getComDef={getComDef}
                 context={context}
@@ -306,6 +310,7 @@ const RenderCom = observer(function ({
   let jsx = comDef.runtime({
     id,
     env,
+    _env,
     data,
     name,
     title,

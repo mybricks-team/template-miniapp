@@ -29,7 +29,7 @@ const regAry = (comAray, comDefs) => {
   })
 }
 
-export default function Main({json, opts, _context}: { json, opts: { env, events, comDefs, comInstance, observable, ref }, _context: any}) {
+export default function Main({json, opts, _context, style = {}}: { json, opts: { env, _env, events, comDefs, comInstance, observable, ref }, _context: any, style: any}) {
   
   const comInstance = useMemo(() => {
     return opts.comInstance || {}
@@ -107,7 +107,9 @@ export default function Main({json, opts, _context}: { json, opts: { env, events
     <ErrorBoundary errorTip={`页面渲染错误`}>
       <RenderSlot
         env={env}
+        _env={opts._env}
         slot={slot}
+        style={style}
         getComDef={getComDef}
         context={context}
         __rxui_child__={!opts.observable}

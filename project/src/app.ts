@@ -2,7 +2,7 @@ import './registExternals';
 
 import Taro from "@tarojs/taro";
 import { Component } from "react";
-import { render } from "./app/render-taro"
+import { render, ScenesContext } from "./app/render-taro"
 import './app/render-taro/index.css'
 import { call as callConnectorHttp } from "./app/utils/callConnectorHttp-ktaro";
 import { EventEmitter } from './app/utils/event'
@@ -70,10 +70,14 @@ const getPagePathFromSceneIdAndParams = (sceneId, searchParams) => {
   return pagePathWithQuery
 }
 
-//
+app.h.scenesContext = new ScenesContext({ scenes: injectConfig.scenes, global: { fxFrames: injectConfig.fxFrames } })
+
 app.h.render = (toJson, { comDefs, comInstance, ref, scenesOperate, setShareConfig }) => {
-  const _comModules = typeof app.mybricks?.allComModules === 'object' ? app.mybricks?.allComModules : comInstance
-  return render(toJson, {
+  const _comModules = typeof app.mybricks?.allComModules === 'object' ? app.mybricks?.allComModules : comInstance;
+
+  const mainPageJson = toJson.scenes.filter(t => t.type !== 'popup')?.[0];
+
+  const options = {
     env: {
       callConnector: genCallConnector(app.mybricks.status, _comModules),
       fileUploader(file) {
@@ -154,8 +158,8 @@ app.h.render = (toJson, { comDefs, comInstance, ref, scenesOperate, setShareConf
       // event: eventEmitter,
       tabbar: tabbarIns,
       rootScroll: {
-        onScroll: cb => eventEmitter.addEventListner(`rootScroll_${toJson?.id}`, cb),
-        emitScrollEvent: (payload) => eventEmitter.dispatch(`rootScroll_${toJson?.id}`, payload),
+        onScroll: cb => eventEmitter.addEventListner(`rootScroll_${mainPageJson?.id}`, cb),
+        emitScrollEvent: (payload) => eventEmitter.dispatch(`rootScroll_${mainPageJson?.id}`, payload),
         scrollTo: ({ scrollTop = 0 }) => { },
         getBoundingClientRect: Promise.resolve()
       },
@@ -167,7 +171,10 @@ app.h.render = (toJson, { comDefs, comInstance, ref, scenesOperate, setShareConf
     comInstance: _comModules,
     scenesOperate,
     ref,
-  });
+  }
+
+  const pageContext = app.h.scenesContext.createPageContext(mainPageJson.id, options);
+  return render(toJson, options, pageContext, app.h.scenesContext.scenesOperate);
 };
 
 app.mybricks = app.mybricks || {};
