@@ -322,8 +322,6 @@ export class ScenesContext {
         // 小程序这里只有 fx 的执行，随便拿一个页面的context来执行即可，目前用第一个页面的
         const _context = _this.getPageContext(json.scenes[0].id)
         const { options } = _context
-
-        console.warn(frameId, fxToJsonMap)
   
         const fxtojson = fxToJsonMap[frameId]
         if (fxtojson) {

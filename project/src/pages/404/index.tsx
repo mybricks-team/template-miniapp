@@ -86,21 +86,21 @@ export default () => {
       return;
     }
 
+    ioRefs.current.ref?.inputs?.onShow?.();
+
     Taro.eventCenter.trigger("pageDidShow", {
       path: router.path || "",
       query: router.params || {},
     });
-
-    // ioRefs.current.ref?.inputs?.onShow?.();
   });
 
   useDidHide(() => {
+    ioRefs.current.ref?.inputs?.onHide?.();
+
     Taro.eventCenter.trigger("pageDidHide", {
       path: router.path || "",
       query: router.params || {},
     });
-
-    // ioRefs.current.ref?.inputs?.onHide?.();
   });
 
   // usePullDownRefresh(() => {

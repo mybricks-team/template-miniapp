@@ -83,7 +83,7 @@ app.h.render = (toJson, { comDefs, comInstance, ref, scenesOperate, setShareConf
       fileUploader(file) {
         return new Promise((resolve, reject) => {
           Taro.uploadFile({
-            url: `${toJson?.configuration?.serviceDomain}/paas/api/oss/uploadFile`,
+            url: `${app.mybricks.status?.serviceDomain}/paas/api/oss/uploadFile`,
             filePath: file.path,
             name: "file",
             formData: {
@@ -97,10 +97,8 @@ app.h.render = (toJson, { comDefs, comInstance, ref, scenesOperate, setShareConf
         });
       },
       canvas: {
-        id: toJson?.id,
+        id: mainPageJson?.id,
         _open(sceneId, params, action) {
-          console.warn("canvas open", arguments);
-
           const goto = (type: 'navigateTo' | 'redirectTo', url) => {
             const goRoute = type === 'navigateTo' ? Taro.navigateTo : Taro.redirectTo
             goRoute({
@@ -174,7 +172,7 @@ app.h.render = (toJson, { comDefs, comInstance, ref, scenesOperate, setShareConf
   }
 
   const pageContext = app.h.scenesContext.createPageContext(mainPageJson.id, options);
-  return render(toJson, options, pageContext, app.h.scenesContext.scenesOperate);
+  return render(toJson, pageContext.options, pageContext, app.h.scenesContext);
 };
 
 app.mybricks = app.mybricks || {};

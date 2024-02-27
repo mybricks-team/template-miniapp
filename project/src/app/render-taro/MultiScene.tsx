@@ -5,28 +5,26 @@ import React, {
 } from 'react'
 import Main from './Main'
 
-export default function MultiScene ({json, options, _context, scenesOperate}) {
+export default function MultiScene ({json, options, _context, scenesContext}) {
   const [count, setCount] = useState(0)
   const [popupIds, setPopupIds] = useState<any>([])
 
-  const {mainPageJson, scenesMap} = useMemo(() => {
+  const {mainPageJson} = useMemo(() => {
     return {
-      scenesMap: json.scenes.reduce((acc, json, index) => {
-        return {
-          ...acc,
-          [json.id]: {
-            show: index === 0,
-            todo: [],
-            json,
-            disableAutoRun: !!(options.disableAutoRun || index),
-            useEntryAnimation: false,
-            type: json.slot?.showType || json.type
-          }
-        }
-      }, {}),
       mainPageJson: json.scenes.filter(t => t.type !== 'popup')?.[0],
     }
   }, [])
+
+  const scenesMap = useMemo(() => {
+    if (Array.isArray(json.scenes)) {
+      json.scenes.forEach(scene => {
+        scenesContext.scenesMap[scene.id].json = scene;
+        scenesContext.scenesMap[scene.id].type = scene.slot?.showType || scene.type;
+      })
+    }
+    return scenesContext.scenesMap
+  }, [])
+
 
   useMemo(() => {
     if (options.ref) {
@@ -52,23 +50,19 @@ export default function MultiScene ({json, options, _context, scenesOperate}) {
       // console.log(`打开场景 -> ${sceneId}`)
       let scenes = scenesMap[sceneId]
 
-
-      // 说明是打开页面
-      if (!scenes) {
-        await env.canvas._open(sceneId, params, openType)
-        return
-      }
-
       // 说明是打开弹窗
       if (scenes.type === 'popup') {
         setPopupIds((popupIds) => {
           return popupIds.indexOf(sceneId) > -1 ? popupIds : [...popupIds, sceneId]
         })
+      } else { // 说明是打开页面
+        await env.canvas._open(sceneId, params, openType)
+        return
       }
     }
  
 
-    env.scenesOperate = scenesOperate
+    env.scenesOperate = scenesContext.scenesOperate
 
     return {
       ...options,
@@ -77,7 +71,7 @@ export default function MultiScene ({json, options, _context, scenesOperate}) {
         return scenes.disableAutoRun
       },
       ref: options.ref((_refs) => {
-        // console.log(`场景注册_refs -> ${id}`)
+        console.log(`场景注册_refs -> ${id}`)
         scenes._refs = _refs
         const todo = scenes.todo
         const { inputs, outputs } = _refs
@@ -85,6 +79,7 @@ export default function MultiScene ({json, options, _context, scenesOperate}) {
 
         scenes.json.outputs.forEach((output) => {
           outputs(output.id, (value) => {
+            console.warn(output.id, value)
             // TODO: 临时，后续应该给场景一个回调
             if (output.id === 'apply') {
               scenes.parentScope?.outputs[output.id](value)
@@ -164,7 +159,7 @@ export default function MultiScene ({json, options, _context, scenesOperate}) {
           }
         }
       },
-      scenesOperate
+      scenesOperate: scenesContext.scenesOperate
     }
   }, [])
 
@@ -175,7 +170,7 @@ export default function MultiScene ({json, options, _context, scenesOperate}) {
         const json = scene.json
         const { id } = json
         
-        return <Main key={json.id} json={{...json, scenesMap}} opts={getOptions(id)} style={{position: 'absolute', top: 0, left: 0, backgroundColor: '#ffffff00'}} _context={_context} />
+        return <Main key={json.id} json={{...json}} opts={getOptions(id)} style={{position: 'absolute', top: 0, left: 0, backgroundColor: '#ffffff00'}} _context={_context} />
       })
     }
    

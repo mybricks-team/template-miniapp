@@ -42,7 +42,6 @@ export default function Main({json, opts, _context, style = {}}: { json, opts: {
       logger: _context.logger,
       getComDef: (def: any) => _context.getComDef(def),
       slot: json.slot,
-      _context
     }
   }, [])
 

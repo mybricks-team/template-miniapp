@@ -749,7 +749,6 @@ export default function executor(opts, {observable}) {
 
             const comDef = getComDef(def)
             if (!comDef) return
-            logOutputVal(com.title, comDef, name, val)
 
             const evts = model.outputEvents
             let cons

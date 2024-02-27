@@ -217,7 +217,7 @@ const RenderCom = observer(function ({
 
   const parentSlot = useMemo(() => {
     if (props.frameId && props.parentComId) {
-      const slotProps = getContext(
+      const slotProps = context.get(
         props.parentComId,
         props.frameId,
         scope?.parent

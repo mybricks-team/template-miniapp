@@ -16,10 +16,10 @@ export * from './scenesContext';
 
 // console.log(`%c ${pkg.name} %c@${pkg.version}`, `color:#FFF;background:#fa6400`, ``, ``);
 
-export function render(json, opts: { events?, env?, comDefs?, comInstance?, observable?, ref? } = {}, _context?, scenesOperate?) {
+export function render(json, opts: { events?, env?, comDefs?, comInstance?, observable?, ref? } = {}, _context?, scenesContext?) {
 
   if (Array.isArray(json.scenes)) {
-    return <MultiScene json={json} options={opts as any} _context={_context} scenesOperate={scenesOperate} />
+    return <MultiScene json={json} options={opts as any} _context={_context} scenesContext={scenesContext} />
   }
   return (
     <Main json={json} opts={opts as any} _context={_context}/>
