@@ -71,7 +71,7 @@ export default function MultiScene ({json, options, _context, scenesContext}) {
         return scenes.disableAutoRun
       },
       ref: options.ref((_refs) => {
-        console.log(`场景注册_refs -> ${id}`)
+        // console.log(`场景注册_refs -> ${id}`)
         scenes._refs = _refs
         const todo = scenes.todo
         const { inputs, outputs } = _refs
@@ -79,7 +79,6 @@ export default function MultiScene ({json, options, _context, scenesContext}) {
 
         scenes.json.outputs.forEach((output) => {
           outputs(output.id, (value) => {
-            console.warn(output.id, value)
             // TODO: 临时，后续应该给场景一个回调
             if (output.id === 'apply') {
               scenes.parentScope?.outputs[output.id](value)
