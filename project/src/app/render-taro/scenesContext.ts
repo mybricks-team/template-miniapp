@@ -268,7 +268,7 @@ export class ScenesContext {
 
     this.json = json
 
-    this.scenesMap = json.scenes.reduce((acc, json, index) => {
+    this.scenesMap = (json?.scenes ?? []).reduce((acc, json, index) => {
       return {
         ...acc,
         [json.id]: {
