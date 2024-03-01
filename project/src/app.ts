@@ -3,7 +3,6 @@ import './registExternals';
 import Taro from "@tarojs/taro";
 import { Component } from "react";
 import { render, ScenesContext } from "./app/render-taro"
-import './app/render-taro/index.css'
 import { call as callConnectorHttp } from "./app/utils/callConnectorHttp-ktaro";
 import { EventEmitter } from './app/utils/event'
 import './app/utils/pxToRpx';

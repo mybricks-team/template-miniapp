@@ -13,15 +13,82 @@ import { isNumber, uuid } from "./utils";
 
 import ErrorBoundary from "./ErrorBoundary";
 import { observer } from "./observable";
-// import css from "./RenderSlot.less";
+import "./RenderSlot.css";
 const css = {
   slot: "mybricks_slot",
+  error: "error",
 };
+
+function renderRstTraverseCom2({com, index, env, getComDef, context, scope, inputs, outputs, _inputs, _outputs, _env, template, onError, logger, createPortal}) {
+  // const { type } = com
+
+  // if (type) {
+  //   const { items, style } = com
+  //   if (type === 'row') {
+  //     return (
+  //       <div key={index} style={{display: 'flex', flexDirection: 'row', ...style}}>
+  //         {items.map((com, index) => renderRstTraverseCom2({com, index, env, getComDef, context, scope, inputs, outputs, _inputs, _outputs, _env, template, onError, logger, createPortal}))}
+  //       </div>
+  //     )
+  //   } else if (type === 'column') {
+  //     return (
+  //       <div key={index} style={{display: 'flex', flexDirection: 'column', ...style}}>
+  //         {items.map((com, index) => renderRstTraverseCom2({com, index, env, getComDef, context, scope, inputs, outputs, _inputs, _outputs, _env, template, onError, logger, createPortal}))}
+  //       </div>
+  //     )
+  //   }
+  // } else {
+  //   const jsx = getRenderComJSX({ com, env, getComDef, context, scope, inputs, outputs, _inputs, _outputs, index: index, _env, template, onError, logger, createPortal })
+
+  //   return jsx.jsx
+  // }
+
+  const { id, elements, style } = com
+
+  if (elements) {
+    return (
+      <view
+        key={id}
+        style={style}
+        // style={{
+        //   display: 'flex',
+        //   // width: com.width,
+        //   // height: com.height,
+        //   marginLeft: com.marginLeft,
+        //   marginRight: com.marginRight,
+        //   marginTop: com.marginTop,
+        //   flexDirection: com.flexDirection
+        // }}
+      >
+        {elements.map((com: any) => {
+          return renderRstTraverseCom2({com, index, env, getComDef, context, scope, inputs, outputs, _inputs, _outputs, _env, template, onError, logger, createPortal})
+        })}
+        {/* {com.isContainer ? (
+          <div style={{display: style.display, flexDirection: style.flexDirection, width: 'fit-content'}}>
+            {elements.map((com: any) => {
+              return renderRstTraverseCom2({com, index, env, getComDef, context, scope, inputs, outputs, _inputs, _outputs, _env, template, onError, logger, createPortal})
+            })}
+          </div>
+        ) : elements.map((com: any) => {
+          return renderRstTraverseCom2({com, index, env, getComDef, context, scope, inputs, outputs, _inputs, _outputs, _env, template, onError, logger, createPortal})
+        })} */}
+      </view>
+    )
+  } else {
+    const jsx: any = getRenderComJSX({ com, env, getComDef, context, scope, inputs, outputs, _inputs, _outputs, index: index, _env, template, onError, logger, createPortal })
+
+    return jsx?.jsx
+  }
+
+}
 
 export default function RenderSlot({
   scope,
+  root,
   slot,
   style: propsStyle = {},
+  createPortal,
+  className,
   params,
   inputs,
   outputs,
@@ -37,9 +104,24 @@ export default function RenderSlot({
   onError,
   logger,
 }) {
-  const { style, comAry } = slot;
+  const { style, comAry, comAry2} = slot;
 
-  const itemAry = [];
+  if (style.layout === "smart" && comAry2) {
+    const paramsStyle = params?.style;
+    const slotStyle = paramsStyle || style;
+    return (
+      <view data-isslot='1' className={`${calSlotClasses(slotStyle)}${root && className ? ` ${className}` : ''}`} style={{...calSlotStyles(slotStyle, !!paramsStyle, root), ...propsStyle, display: 'inline-block'}}>
+        {/* {comAry2.map((rstTraverseElement: any, index: any) => {
+          return renderRstTraverseCom({com: rstTraverseElement, index, env, getComDef, context, scope, inputs, outputs, _inputs, _outputs, _env, template, onError, logger, createPortal})
+        })} */}
+        {comAry2.map((rstTraverseElement: any, index: any) => {
+          return renderRstTraverseCom2({com: rstTraverseElement, index, env, getComDef, context, scope, inputs, outputs, _inputs, _outputs, _env, template, onError, logger, createPortal})
+        })}
+      </view>
+    )
+  }
+
+  const itemAry: any = [];
   comAry.forEach((com, idx) => {
     //组件逐个渲染
     const { id, def, name }: Com = com;
@@ -101,6 +183,101 @@ export default function RenderSlot({
         {itemAry.map((item) => item.jsx)}
       </view>
     );
+  }
+}
+
+function getRenderComJSX({ com, env, getComDef, context, scope, inputs, outputs, _inputs, _outputs, index, _env, template, onError, logger, createPortal }) {
+  const {id, def, name, children, brother} = com
+  // const comInfo = context.getComInfo(id)
+  // const { hasPermission, permissions: envPermissions } = env
+  // const permissions = comInfo?.model?.permissions
+
+  // if (permissions && typeof hasPermission === 'function' && !hasPermission(permissions.id)) {
+  //   return
+  // }
+  // const permissionsId = comInfo?.model?.permissions?.id
+  // if (permissionsId && typeof hasPermission === 'function') {
+  //   if (!hasPermission(permissionsId)) {
+  //     const permission = envPermissions.find((p: any) => p.id === permissionsId)
+  //     if (permission?.register.noPrivilege === 'hintLink') {
+  //       return {
+  //         id,
+  //         name,
+  //         jsx: (
+  //           <div>
+  //             <a
+  //               href={permission.hintLink}
+  //               target="_blank"
+  //               style={{textDecoration: 'underline'}}
+  //             >{permission.register.title}</a>
+  //           </div>
+  //         ),
+  //         style: {}
+  //       }
+  //     }
+  //     return
+  //   }
+  // }
+  const comDef = getComDef(def)
+
+  if (comDef) {
+    const props = context.get({comId: id, scope, _ioProxy: {
+      inputs, outputs, _inputs, _outputs
+    }})
+
+    if (props) {
+      const comKey = id + (scope ? scope.id : '') + index//考虑到scope变化的情况，驱动组件强制刷新
+      // let childrenJSX = []
+      // let brotherJSX = []
+      // if (children?.length) {
+      //   {children.forEach((child: any, index: any) => {
+      //     const jsx = renderRstTraverseCom({ com: child, env, getComDef, context, scope, inputs, outputs, _inputs, _outputs, index, _env, template, onError, logger, createPortal })
+      //     childrenJSX.push(jsx)
+      //   })}
+      // }
+      // if (brother?.length) {
+      //   {brother.forEach((bro: any, index: any) => {
+      //     const jsx = renderRstTraverseCom({ com: bro, env, getComDef, context, scope, inputs, outputs, _inputs, _outputs, index, _env, template, onError, logger, createPortal })
+      //     brotherJSX.push(jsx)
+      //   })}
+      // }
+      return {
+        id,
+        jsx: <RenderCom key={comKey} com={com}
+                        getComDef={getComDef}
+                        context={context}
+                        scope={scope}
+                        props={props}
+                        env={env}
+                        _env={_env}
+                        template={template}
+                        onError={onError}
+                        logger={logger}
+                        createPortal={createPortal}>
+                          {/* {childrenJSX}
+                          {brotherJSX} */}
+                          </RenderCom>,
+        name,
+        inputs: props.inputsCallable,
+        style: props.style
+      }
+    } else {
+      return {
+        id, jsx: (
+          <view className={css.error}>
+            未找到组件({def.namespace}@{def.version} - {id})定义.
+          </view>
+        ), name, style: {}
+      }
+    }
+  } else {
+    return {
+      id, jsx: (
+        <view className={css.error}>
+          未找到组件({def.namespace}@{def.version})定义.
+        </view>
+      ), name, style: {}
+    }
   }
 }
 
@@ -523,7 +700,7 @@ const SlotRender = memo(
 
 //-----------------------------------------------------------------------
 
-function calSlotStyles(style, hasParamsStyle) {
+function calSlotStyles(style, hasParamsStyle, root?) {
   // 兼容旧的style
   const {
     paddingLeft,
@@ -544,38 +721,40 @@ function calSlotStyles(style, hasParamsStyle) {
     paddingRight: paddingRight || 0,
     paddingBottom: paddingBottom || 0,
     //height: style.customHeight || '100%'
-  } as any;
+    backgroundColor: backgroundColor || (root ? '#ffffff' : void 0),
+    backgroundImage,
+    backgroundPosition,
+    backgroundRepeat,
+    backgroundSize,
+  } as any
   // 兼容旧的style
-  const isOldBackground = typeof background === "object";
-  if (isOldBackground) {
-    const {
-      background: bg,
-      backgroundImage,
-      backgroundColor,
-      backgroundRepeat,
-      backgroundSize,
-    } = background;
-
-    slotStyle.backgroundRepeat = backgroundRepeat;
-    slotStyle.backgroundSize = backgroundSize;
-
-    if (bg) {
-      slotStyle.background = bg;
+  if (background) {
+    const isOldBackground = typeof background === 'object'
+    if (isOldBackground) {
+      const {
+        background: bg,
+        backgroundImage,
+        backgroundColor,
+        backgroundRepeat,
+        backgroundSize
+      } = background;
+  
+      slotStyle.backgroundRepeat = backgroundRepeat
+      slotStyle.backgroundSize = backgroundSize
+  
+      if (bg) {
+        slotStyle.background = bg
+      } else {
+        slotStyle.backgroundImage = backgroundImage
+        slotStyle.backgroundColor = backgroundColor
+      }
     } else {
-      slotStyle.backgroundImage = backgroundImage;
-      slotStyle.backgroundColor = backgroundColor;
+      slotStyle.background = background
     }
-  } else {
-    background && (slotStyle.background = background);
-    backgroundColor && (slotStyle.backgroundColor = backgroundColor);
-    backgroundImage && (slotStyle.backgroundImage = backgroundImage);
-    backgroundRepeat && (slotStyle.backgroundRepeat = backgroundRepeat);
-    backgroundPosition && (slotStyle.backgroundPosition = backgroundPosition);
-    backgroundSize && (slotStyle.backgroundSize = backgroundSize);
   }
 
   if (hasParamsStyle) {
-    slotStyle = Object.assign(slotStyle, otherStyle);
+    slotStyle = Object.assign(slotStyle, otherStyle)
   }
 
   return slotStyle;
