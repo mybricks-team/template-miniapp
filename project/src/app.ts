@@ -21,22 +21,40 @@ app.h = app.h || {};
 const genCallConnector = (status, comInstance) => (connector, params) => {
   if (connector.type === 'http') {
     //服务接口类型
-    return callConnectorHttp(comInstance[connector.id], params)
+    return callConnectorHttp(comInstance[connector.id], params, {
+      before(options) {
+        let newOptions = { ...options }
+
+        newOptions.headers = newOptions.headers || {};
+        let mybricksGlobalHeaders = Taro.getStorageSync('_MYBRICKS_GLOBAL_HEADERS_');
+        if (mybricksGlobalHeaders) {
+          Object.assign(newOptions.headers, mybricksGlobalHeaders);
+        }
+
+        return newOptions;
+      }
+    })
   } else if (connector.type === 'http-sql') {
     return callConnectorHttp(comInstance[connector.id], params, {
       before(options) {
         let newOptions = { ...options }
 
-        // 已登录用户，自动在 params 中加入 userId
-        newOptions.data = newOptions.data || {};
-        newOptions.data.params = newOptions.data.params || {};
-        let userInfo = Taro.getStorageSync('userInfo');
-        if (userInfo && userInfo.id) {
-          newOptions.data.params.loginUserId = userInfo.id;
-        } else {
-          newOptions.data.params.loginUserId = 0;
+        newOptions.headers = newOptions.headers || {};
+        let mybricksGlobalHeaders = Taro.getStorageSync('_MYBRICKS_GLOBAL_HEADERS_');
+        if (mybricksGlobalHeaders) {
+          Object.assign(newOptions.headers, mybricksGlobalHeaders);
         }
-        /////////////////////////////////
+
+        // // 已登录用户，自动在 params 中加入 userId
+        // newOptions.data = newOptions.data || {};
+        // newOptions.data.params = newOptions.data.params || {};
+        // let userInfo = Taro.getStorageSync('userInfo');
+        // if (userInfo && userInfo.id) {
+        //   newOptions.data.params.loginUserId = userInfo.id;
+        // } else {
+        //   newOptions.data.params.loginUserId = 0;
+        // }
+        // /////////////////////////////////
 
         const isInProject = !!status?.projectId;
         const isTestEnvApi = status?.apiEnv === 'test';
