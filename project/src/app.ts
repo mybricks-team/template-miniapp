@@ -25,10 +25,10 @@ const genCallConnector = (status, comInstance) => (connector, params) => {
       before(options) {
         let newOptions = { ...options }
 
-        newOptions.headers = newOptions.headers || {};
+        newOptions.header = newOptions.header || {};
         let mybricksGlobalHeaders = Taro.getStorageSync('_MYBRICKS_GLOBAL_HEADERS_');
         if (mybricksGlobalHeaders) {
-          Object.assign(newOptions.headers, mybricksGlobalHeaders);
+          Object.assign(newOptions.header, mybricksGlobalHeaders);
         }
 
         return newOptions;
@@ -39,10 +39,10 @@ const genCallConnector = (status, comInstance) => (connector, params) => {
       before(options) {
         let newOptions = { ...options }
 
-        newOptions.headers = newOptions.headers || {};
+        newOptions.header = newOptions.header || {};
         let mybricksGlobalHeaders = Taro.getStorageSync('_MYBRICKS_GLOBAL_HEADERS_');
         if (mybricksGlobalHeaders) {
-          Object.assign(newOptions.headers, mybricksGlobalHeaders);
+          Object.assign(newOptions.header, mybricksGlobalHeaders);
         }
 
         // // 已登录用户，自动在 params 中加入 userId
