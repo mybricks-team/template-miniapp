@@ -76,6 +76,7 @@ const getFetch = (connector) => {
   return (params, { then, onError }, config) => {
     const method = connector.method;
     const path = connector.path.trim();
+    const headers = connector.headers || {};
     const outputKeys = connector.outputKeys || [];
     const excludeKeys = connector.excludeKeys || [];
 
@@ -83,7 +84,9 @@ const getFetch = (connector) => {
       const url = path;
       /** 全局入参处理 */
       const newParams = connector.globalParamsFn(
-        method.startsWith('GET') ? { params, url, method } : { data: params, url, method }
+        method.startsWith("GET")
+          ? { params, url, method, headers }
+          : { data: params, url, method, headers }
       );
       newParams.url = newParams.url || url;
       newParams.method = newParams.method || method;
@@ -93,14 +96,19 @@ const getFetch = (connector) => {
       // 小程序需要兼容 headers => header
       if (options.headers) {
         options.header = options.headers;
-        Reflect.deleteProperty(options, 'headers');
+        Reflect.deleteProperty(options, "headers");
       }
 
       // 由于小程序不支持 params，需要将 params 放到 url 上
       if (options.params) {
-        let search = Object.keys(options.params).map(key => `${key}=${options.params[key]}`).join('&');
-        options.url = (options.url || url).indexOf("?") === -1 ? `${options.url}?${search}` : `${options.url}&${search}`;
-        Reflect.deleteProperty(options, 'params');
+        let search = Object.keys(options.params)
+          .map((key) => `${key}=${options.params[key]}`)
+          .join("&");
+        options.url =
+          (options.url || url).indexOf("?") === -1
+            ? `${options.url}?${search}`
+            : `${options.url}&${search}`;
+        Reflect.deleteProperty(options, "params");
       }
 
       // /** url 里支持模板字符串 */
@@ -109,7 +117,7 @@ const getFetch = (connector) => {
       //   Reflect.deleteProperty(options.params || {}, key);
       //   return param;
       // });
-      
+
       options.method = options.method || method;
 
       config
@@ -123,10 +131,12 @@ const getFetch = (connector) => {
         })
         .then((response) => {
           /** 局部响应值处理 */
-          return connector.output(response, Object.assign({}, options), { throwStatusCodeError: onError });
+          return connector.output(response, Object.assign({}, options), {
+            throwStatusCodeError: onError,
+          });
         })
         .then((response) => {
-          excludeKeys?.forEach((key) => del(response, key.split('.')));
+          excludeKeys?.forEach((key) => del(response, key.split(".")));
 
           return response;
         })
@@ -136,19 +146,29 @@ const getFetch = (connector) => {
             outputData = response;
           } else {
             outputKeys.forEach((key) => {
-              setData(response, key.split('.'), outputData);
+              setData(response, key.split("."), outputData);
             });
 
             /** 当标记单项时，自动返回单项对应的值 */
-            if (Array.isArray(outputKeys) && outputKeys.length && (outputKeys.length > 1 || !(outputKeys.length === 1 && outputKeys[0] === ''))) {
+            if (
+              Array.isArray(outputKeys) &&
+              outputKeys.length &&
+              (outputKeys.length > 1 ||
+                !(outputKeys.length === 1 && outputKeys[0] === ""))
+            ) {
               try {
-                let cascadeOutputKeys = outputKeys.map(key => key.split('.'));
-                while (Object.prototype.toString.call(outputData) === '[object Object]' && cascadeOutputKeys.every(keys => !!keys.length) && Object.values(outputData).length === 1) {
+                let cascadeOutputKeys = outputKeys.map((key) => key.split("."));
+                while (
+                  Object.prototype.toString.call(outputData) ===
+                    "[object Object]" &&
+                  cascadeOutputKeys.every((keys) => !!keys.length) &&
+                  Object.values(outputData).length === 1
+                ) {
                   outputData = Object.values(outputData)[0];
-                  cascadeOutputKeys.forEach(keys => keys.shift());
+                  cascadeOutputKeys.forEach((keys) => keys.shift());
                 }
               } catch (e) {
-                console.log('connector format data error', e);
+                console.log("connector format data error", e);
               }
             }
           }
@@ -164,7 +184,11 @@ const getFetch = (connector) => {
   };
 };
 
-export function call(connector: Record<string, unknown>, params: any, config?: IConfig) {
+export function call(
+  connector: Record<string, unknown>,
+  params: any,
+  config?: IConfig
+) {
   return new Promise((resolve, reject) => {
     try {
       const fn = getFetch(connector);
@@ -176,13 +200,13 @@ export function call(connector: Record<string, unknown>, params: any, config?: I
           ajax(options: IOptions) {
             return Taro.request(before({ ...options }) || options)
               .then((res: any) => res.data)
-              .catch(error => reject(error));
+              .catch((error) => reject(error));
           },
         }
       );
     } catch (ex) {
-      console.error('连接器script错误', ex);
-      reject('连接器script错误.');
+      console.error("连接器script错误", ex);
+      reject("连接器script错误.");
     }
   });
 }
